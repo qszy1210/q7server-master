@@ -16,7 +16,7 @@ $(function() {
          token = (cookies.find(c=>c.name===tokenKey)||{}).value;
          $user.text(token);
         console.log("token is", token);
-        chrome.storage.sync.set({
+        chrome.storage.local.set({
             token
         });
         $(document).trigger("onTokenReady", token);
@@ -34,7 +34,7 @@ $(function() {
 
      $(document).on("onTokenReady", function() {
          var token = ""
-        chrome.storage.sync.get({
+        chrome.storage.local.get({
             token: ""
         }, function(items){
             token = items.token
@@ -44,7 +44,7 @@ $(function() {
 
      $(document).on("onServerListReady", function(event, serverList) {
         var token = ""
-        chrome.storage.sync.get({
+        chrome.storage.local.get({
             token: ""
         }, function(items){
             token = items.token;
@@ -60,6 +60,19 @@ $(function() {
  * 根据 token 获取server信息,并且将内容render到对应的$container中
  */
 function getServerInfo(serverList, token) {
+    let allServers = [];
+    chrome.storage.local.get({allServers}, function(items){
+        allServers = items.allServers;
+        if (allServers && allServers.length && !force) {
+            render(allServers);
+            return;
+        } else {
+            doGetServerInfo(serverList, token);
+        }
+
+    });
+}
+function doGetServerInfo(serverList, token) {
     // const url = "http://ops.q7link.com:8080/api/qqtools/serverinfo/?page=1&limit=99&env=nx-temp13";
     const url = "http://ops.q7link.com:8080/api/qqtools/serverinfo/?page=1&limit=99&env=";
     if (!serverList || !serverList.length)return;
@@ -74,8 +87,21 @@ function getServerInfo(serverList, token) {
     }))).then(dataArr=>{
         if (dataArr && dataArr.length) {
             const allServers = dataArr.map(data=>{
-                return data && data.data;
+                const servers = data && data.data && data.data.map(server=>{
+                    const {assetUrl, envName, envHost} = server;
+                    if (!assetUrl) return "";
+                    const {ELK, GQL, NSQ} = assetUrl;
+                    return {
+                        assetUrl: {
+                            ELK, GQL, NSQ
+                        },
+                        envName,
+                        envHost,
+                    }
+                }).filter(i=>i);
+                return servers;
             });
+            chrome.storage.local.set({allServers: allServers});
             render(allServers);
         }
     })
@@ -126,7 +152,7 @@ function generateHtml(servers) {
 
 function getServerList(token) {
     var serverList = ""
-    chrome.storage.sync.get({
+    chrome.storage.local.get({
         serverList: ""
     }, function(items){
         serverList = items.serverList;
@@ -151,7 +177,7 @@ function doGetServerList(serverList, token) {
             dataType: "json",
             success: function(data){
                 const serverList = data && data.data &&data.data.map(i=>i.envName);
-                chrome.storage.sync.set({
+                chrome.storage.local.set({
                     serverList
                 });
                 //getServerInfo(serverList, token);
