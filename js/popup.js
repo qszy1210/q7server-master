@@ -39,13 +39,14 @@ $(function() {
         console.log(e.target.value);
         render();
      });
-     $container.on("input", "#forceResfresh", function(e) {
-        console.log(e.target.value);
+     $container.on("click", "#forceResfresh", function(e) {
+        force = true;
+        refresh();
      });
 
 
      $(document).on("onTokenReady", function() {
-         var token = ""
+        var token = ""
         chrome.storage.local.get({
             token: ""
         }, function(items){
@@ -67,6 +68,16 @@ $(function() {
 
 });
 
+//刷新数据
+function refresh() {
+    var token = ""
+    chrome.storage.local.get({
+        token: ""
+    }, function(items){
+        token = items.token
+        getServerList(token);
+    });
+}
 
 /**
  * 根据 token 获取server信息,并且将内容render到对应的$container中
@@ -80,6 +91,9 @@ function getServerInfo(serverList, token) {
             return;
         } else {
             doGetServerInfo(serverList, token);
+            if (force) {
+                force = false;
+            }
         }
 
     });
@@ -141,17 +155,25 @@ function render(allServers) {
         return getNumber(s1[0].envName) - getNumber(s2[0].envName);
     }).forEach(servers => {
         const filteredServer = searchKey && servers.filter(s=>s&&s.envName.indexOf(searchKey)>-1) || servers;
-        const htmls = generateHtml(filteredServer);
+        const [htmls, secondHtmls] = generateHtml(filteredServer);
         $container.append(`
         <tr>
         ${ htmls.join("") }
         </tr>
         `);
+        if (secondHtmls && secondHtmls.length) {
+            $container.append(`
+                <tr>
+                ${ secondHtmls.join("") }
+                </tr>
+                `);
+        }
     })
 }
 
 function generateHtml(servers) {
-    return servers.map(server=>{
+    let first, second
+    first =  servers.slice(0,2).map((server,index)=>{
         const {assetUrl, envName, envHost} = server;
         if (!assetUrl) return "";
         const {ELK, GQL, NSQ} = assetUrl;
@@ -163,7 +185,21 @@ function generateHtml(servers) {
         <a href="#" data-url="${NSQ}">NSQ</a>
         </td>
         `
-    })
+    });
+    second =  servers.slice(2).map((server,index)=>{
+        const {assetUrl, envName, envHost} = server;
+        if (!assetUrl) return "";
+        const {ELK, GQL, NSQ} = assetUrl;
+        return `
+        <td class="link">
+        <span class="highlight">${envName}</span>: ${envHost}
+        <a href="#" data-url="${ELK}">ELK</a>
+        <a href="#" data-url="${GQL}">GQL</a>
+        <a href="#" data-url="${NSQ}">NSQ</a>
+        </td>
+        `
+    });
+    return [first,second];
 }
 
 function getServerList(token) {
