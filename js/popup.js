@@ -131,7 +131,15 @@ function render(allServers) {
     const $container = $("#container tbody");
     $container.empty();
     const searchKey = $("#search").val();
-    currentAllServers.forEach(servers => {
+    console.log("currentAllServers is ", currentAllServers);
+    currentAllServers.filter(s=>{
+      return s&&s[0]&&s[0].envName;
+    }).sort((s1,s2)=>{
+        if (getNumber(s1[0].envName)==null) {
+            return 999;
+        }
+        return getNumber(s1[0].envName) - getNumber(s2[0].envName);
+    }).forEach(servers => {
         const filteredServer = searchKey && servers.filter(s=>s&&s.envName.indexOf(searchKey)>-1) || servers;
         const htmls = generateHtml(filteredServer);
         $container.append(`
@@ -149,7 +157,7 @@ function generateHtml(servers) {
         const {ELK, GQL, NSQ} = assetUrl;
         return `
         <td class="link">
-        ${envName}: ${envHost}
+        <span class="highlight">${envName}</span>: ${envHost}
         <a href="#" data-url="${ELK}">ELK</a>
         <a href="#" data-url="${GQL}">GQL</a>
         <a href="#" data-url="${NSQ}">NSQ</a>
