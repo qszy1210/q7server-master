@@ -114,7 +114,7 @@ function doGetServerInfo(serverList, token) {
         if (dataArr && dataArr.length) {
             const allServers = dataArr.map(data=>{
                 const servers = data && data.data && data.data.map(server=>{
-                    const {assetUrl, envName, envHost} = server;
+                    const {assetUrl, envName, envHost, domain} = server;
                     if (!assetUrl) return "";
                     const {ELK, GQL, NSQ} = assetUrl;
                     return {
@@ -123,6 +123,7 @@ function doGetServerInfo(serverList, token) {
                         },
                         envName,
                         envHost,
+                        domain,
                     }
                 }).filter(i=>i);
                 return servers;
@@ -174,12 +175,12 @@ function render(allServers) {
 function generateHtml(servers) {
     let first, second
     first =  servers.slice(0,2).map((server,index)=>{
-        const {assetUrl, envName, envHost} = server;
+        const {assetUrl, envName, envHost,domain} = server;
         if (!assetUrl) return "";
         const {ELK, GQL, NSQ} = assetUrl;
         return `
         <td class="link">
-        <span class="highlight">${envName}</span>: ${envHost}
+        <span class="highlight"><a href="#" data-url="${domain}">${envName}</a></span>: ${envHost}
         <a href="#" data-url="${ELK}">ELK</a>
         <a href="#" data-url="${GQL}">GQL</a>
         <a href="#" data-url="${NSQ}">NSQ</a>
