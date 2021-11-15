@@ -4,7 +4,12 @@
 
 let force = false;
 
+let tempServers = [];
+
 $(function() {
+
+    $("#search").focus();
+
     const $user = $("#userInfo");
     const $container = $("#container");
     const url = "ops.q7link.com";
@@ -29,6 +34,13 @@ $(function() {
      $container.on("click", ".link a", function(e) {
          const url = $(e.target).data("url");
          chrome.tabs.create({url});
+     });
+     $container.on("input", "#search", function(e) {
+        console.log(e.target.value);
+        render();
+     });
+     $container.on("input", "#forceResfresh", function(e) {
+        console.log(e.target.value);
      });
 
 
@@ -106,26 +118,22 @@ function doGetServerInfo(serverList, token) {
         }
     })
 
-    // $.ajax({
-    //     url,
-    //     headers: {
-    //         Token: token
-    //     },
-    //     dataType: "json",
-        // success: function(data){
-        //     console.log(data);
-        //     const servers = data && data.data;
-        //     allServers.push(servers);
-        // }
-    // });
-
 }
 
 function render(allServers) {
+    let currentAllServers = [];
+    if (allServers && allServers.length) {
+        currentAllServers = allServers;
+        tempServers = allServers;
+    } else {
+        currentAllServers = tempServers
+    }
     const $container = $("#container tbody");
     $container.empty();
-    allServers.forEach(servers => {
-        const htmls = generateHtml(servers);
+    const searchKey = $("#search").val();
+    currentAllServers.forEach(servers => {
+        const filteredServer = searchKey && servers.filter(s=>s&&s.envName.indexOf(searchKey)>-1) || servers;
+        const htmls = generateHtml(filteredServer);
         $container.append(`
         <tr>
         ${ htmls.join("") }

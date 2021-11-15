@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>popup</title>
+    <title>save your life</title>
     <style>
         #container{
             width: 500px;
@@ -19,11 +19,15 @@
     </style>
 </head>
 <body>
-    <div>popup</div>
+    <div>save your life</div>
     <div id="container">
         <div id="userInfo">
             <div>如果你看到我, 说明没有登录 serverInfo 信息</div>
             <div>为避免信息泄露, 我这里先不整登录功能</div>
+        </div>
+        <div>
+            <input type="text" id="search" placeholder="输入环境,输入即过滤">
+            <button id="forceResfresh">刷新数据(默认不主动刷新)</button>
         </div>
         <div id="serverList">
             <table>
