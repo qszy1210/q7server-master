@@ -45,24 +45,23 @@ $(function() {
      });
      $container.on("click", "#deploy", function(e) {
          //快速部署 temp13 环境
-         const url = "http://ops.q7link.com:8080/api/qqdeploy/oneclickdeploy/";
-        //  const url = "http://ops.q7link.com:8080/api/qqdeploy/oneclicktemplate/?testOwnerEnv=true";
-        getToken().then(token=>{
-            ajax({
-                type: "POST",
-                url,
-                headers: {
-                    token
-                },
-                data: {
-                    "templateenv": "nx-temp13",
-                    "targetjob": "web,trek"
-                }
-            }).then(d=>{
-                console.log('deployying', d);
-                $(this).val("deployying");
-            })
-        })
+         $('#deploy-area').toggle();
+        //  const env = ['trek', 'web'];
+        //  deploy(env);
+     });
+     $container.on("click", "#startDeploy", function(e) {
+         //快速部署 temp13 环境
+         const env = [];
+         if($('#web').is(":checked")){
+             env.push('web')
+         }
+         if($('#trek').is(":checked")){
+             env.push('trek')
+         }
+         function callback() {
+             $(this).text('deploying');
+         }
+         deploy(env, callback);
      });
 
 
@@ -98,6 +97,30 @@ function refresh() {
         token = items.token
         getServerList(token);
     });
+}
+
+//部署环境,  env 为一个数组字符串
+function deploy(env, cb) {
+    if(!env || !env.length) return;
+    const url = "http://ops.q7link.com:8080/api/qqdeploy/oneclickdeploy/";
+        //  const url = "http://ops.q7link.com:8080/api/qqdeploy/oneclicktemplate/?testOwnerEnv=true";
+        getToken().then(token=>{
+            ajax({
+                type: "POST",
+                url,
+                headers: {
+                    token
+                },
+                data: {
+                    "templateenv": "nx-temp13",
+                    "targetjob": env.join(",") //"web,trek"
+                }
+            }).then(d=>{
+                // console.log('deployying', d);
+                // $(this).val("deployying");
+                typeof cb === 'function' && cb();
+            })
+        })
 }
 
 /**
