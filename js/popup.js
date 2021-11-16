@@ -43,6 +43,27 @@ $(function() {
         force = true;
         refresh();
      });
+     $container.on("click", "#deploy", function(e) {
+         //快速部署 temp13 环境
+         const url = "http://ops.q7link.com:8080/api/qqdeploy/oneclickdeploy/";
+        //  const url = "http://ops.q7link.com:8080/api/qqdeploy/oneclicktemplate/?testOwnerEnv=true";
+        getToken().then(token=>{
+            ajax({
+                type: "POST",
+                url,
+                headers: {
+                    token
+                },
+                data: {
+                    "templateenv": "nx-temp13",
+                    "targetjob": "web,trek"
+                }
+            }).then(d=>{
+                console.log('deployying', d);
+                $(this).val("deployying");
+            })
+        })
+     });
 
 
      $(document).on("onTokenReady", function() {
@@ -246,3 +267,15 @@ function ajax(options) {
     });
   }
 
+// 将获取token的方法更改为一个promise
+function getToken() {
+    let token = "";
+    return new Promise(function(rel, rej) {
+        chrome.storage.local.get({
+            token: ""
+        }, function(items){
+            token = items.token
+            rel(token)
+        });
+    })
+}
