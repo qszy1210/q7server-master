@@ -48,6 +48,26 @@ $(function() {
         force = true;
         refresh();
      });
+     $container.on("click", "#deploy", function(e) {
+         //快速部署 temp13 环境
+         $('#deploy-area').toggle();
+        //  const env = ['trek', 'web'];
+        //  deploy(env);
+     });
+     $container.on("click", "#startDeploy", function(e) {
+         //快速部署 temp13 环境
+         const env = [];
+         if($('#web').is(":checked")){
+             env.push('web')
+         }
+         if($('#trek').is(":checked")){
+             env.push('trek')
+         }
+         function callback() {
+             $(this).text('deploying');
+         }
+         deploy(env, callback);
+     });
 
 
      $(document).on("onTokenReady", function() {
@@ -82,6 +102,30 @@ function refresh() {
         token = items.token
         getServerList(token);
     });
+}
+
+//部署环境,  env 为一个数组字符串
+function deploy(env, cb) {
+    if(!env || !env.length) return;
+    const url = "http://ops.q7link.com:8080/api/qqdeploy/oneclickdeploy/";
+        //  const url = "http://ops.q7link.com:8080/api/qqdeploy/oneclicktemplate/?testOwnerEnv=true";
+        getToken().then(token=>{
+            ajax({
+                type: "POST",
+                url,
+                headers: {
+                    token
+                },
+                data: {
+                    "templateenv": "nx-temp13",
+                    "targetjob": env.join(",") //"web,trek"
+                }
+            }).then(d=>{
+                // console.log('deployying', d);
+                // $(this).val("deployying");
+                typeof cb === 'function' && cb();
+            })
+        })
 }
 
 /**
@@ -246,3 +290,15 @@ function doGetServerList(serverList, token) {
 
 
 
+// 将获取token的方法更改为一个promise
+function getToken() {
+    let token = "";
+    return new Promise(function(rel, rej) {
+        chrome.storage.local.get({
+            token: ""
+        }, function(items){
+            token = items.token
+            rel(token)
+        });
+    })
+}

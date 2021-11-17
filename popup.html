@@ -36,6 +36,14 @@
         <div>
             <input type="text" id="search" placeholder="输入环境,输入即过滤">
             <button id="forceResfresh">刷新数据(默认不主动刷新)</button>
+            <button id="deploy">部署temp13前端</button>
+            <div id="deploy-area" style="margin-left:  200px">
+                <label for="web">Web</label>
+                <input type="checkbox" name="web" id="web">
+                <label for="trek">Trek</label>
+                <input type="checkbox" name="trek" id="trek">
+                <button id="startDeploy">开始部署</button>
+            </div>
         </div>
         <div id="serverList">
             <table>
