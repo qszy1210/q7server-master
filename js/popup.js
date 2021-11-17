@@ -26,6 +26,11 @@ $(function() {
         });
         $(document).trigger("onTokenReady", token);
 
+        getUserInfo(token, force).then(data=>{
+            const name = data.name;
+            $user.text(name);
+        })
+
         // getServerList(token);
 
      });
@@ -239,10 +244,5 @@ function doGetServerList(serverList, token) {
         })
 }
 
-// jquery ajax with  promise
-function ajax(options) {
-    return new Promise(function (resolve, reject) {
-      $.ajax(options).done(resolve).fail(reject);
-    });
-  }
+
 
