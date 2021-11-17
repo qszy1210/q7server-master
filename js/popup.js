@@ -48,7 +48,7 @@ $(function() {
         force = true;
         refresh();
      });
-     $container.on("click", "#deploy", function(e) {
+     $container.on("click", "#toggle", function(e) {
          //快速部署 temp13 环境
          $('#deploy-area').toggle();
         //  const env = ['trek', 'web'];
@@ -67,6 +67,10 @@ $(function() {
              $(this).text('deploying');
          }
          deploy(env, callback);
+     });
+     $container.on("click", "#deployInit", function(e) {
+         const params = {};
+         deployInit(params, callback);
      });
 
 
@@ -119,6 +123,49 @@ function deploy(env, cb) {
                 data: {
                     "templateenv": "nx-temp13",
                     "targetjob": env.join(",") //"web,trek"
+                }
+            }).then(d=>{
+                // console.log('deployying', d);
+                // $(this).val("deployying");
+                typeof cb === 'function' && cb();
+            })
+        })
+}
+//部署init
+function deployInit(params, cb) {
+    if(!env || !env.length) return;
+    const url = "http://ops.q7link.com:8080/api/qqdeploy/jenkinsjob/";
+        getToken().then(token=>{
+            ajax({
+                type: "POST",
+                url,
+                headers: {
+                    token
+                },
+                data: {
+                    jobName: "front-publish-init-data-maven",
+                    jobParams: [{
+                        "_class": "hudson.model.StringParameterDefinition",
+                        "defaultParameterValue": {
+                            "_class": "hudson.model.StringParameterValue",
+                            "name": "Branch",
+                            "value": "feature-inventory"
+                        },
+                        "description": "自定义分支",
+                        "name": "Branch",
+                        "type": "StringParameterDefinition"
+                    },
+                    {
+                        "_class": "hudson.model.BooleanParameterDefinition",
+                        "defaultParameterValue": {
+                            "_class": "hudson.model.BooleanParameterValue",
+                            "name": "release",
+                            "value": false
+                        },
+                        "description": "是否生成生产release包",
+                        "name": "release",
+                        "type": "BooleanParameterDefinition"
+                    }]
                 }
             }).then(d=>{
                 // console.log('deployying', d);
@@ -291,14 +338,14 @@ function doGetServerList(serverList, token) {
 
 
 // 将获取token的方法更改为一个promise
-function getToken() {
-    let token = "";
-    return new Promise(function(rel, rej) {
-        chrome.storage.local.get({
-            token: ""
-        }, function(items){
-            token = items.token
-            rel(token)
-        });
-    })
-}
+// function getToken() {
+//     let token = "";
+//     return new Promise(function(rel, rej) {
+//         chrome.storage.local.get({
+//             token: ""
+//         }, function(items){
+//             token = items.token
+//             rel(token)
+//         });
+//     })
+// }
