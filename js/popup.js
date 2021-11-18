@@ -70,6 +70,7 @@ $(function() {
      });
      $container.on("click", "#deployInit", function(e) {
          const params = {};
+         const callback = function(){};
          deployInit(params, callback);
      });
 
@@ -133,7 +134,6 @@ function deploy(env, cb) {
 }
 //部署init
 function deployInit(params, cb) {
-    if(!env || !env.length) return;
     const url = "http://ops.q7link.com:8080/api/qqdeploy/jenkinsjob/";
         getToken().then(token=>{
             ajax({
@@ -142,30 +142,32 @@ function deployInit(params, cb) {
                 headers: {
                     token
                 },
+                // contentType: "application/json",
                 data: {
                     jobName: "front-publish-init-data-maven",
-                    jobParams: [{
-                        "_class": "hudson.model.StringParameterDefinition",
-                        "defaultParameterValue": {
-                            "_class": "hudson.model.StringParameterValue",
-                            "name": "Branch",
-                            "value": "feature-inventory"
-                        },
-                        "description": "自定义分支",
-                        "name": "Branch",
-                        "type": "StringParameterDefinition"
-                    },
-                    {
-                        "_class": "hudson.model.BooleanParameterDefinition",
-                        "defaultParameterValue": {
-                            "_class": "hudson.model.BooleanParameterValue",
-                            "name": "release",
-                            "value": false
-                        },
-                        "description": "是否生成生产release包",
-                        "name": "release",
-                        "type": "BooleanParameterDefinition"
-                    }]
+                    jobParams: `[{"_class":"hudson.model.StringParameterDefinition","defaultParameterValue":{"_class":"hudson.model.StringParameterValue","name":"Branch","value":"feature-inventory"},"description":"自定义分支","name":"Branch","type":"StringParameterDefinition"},{"_class":"hudson.model.BooleanParameterDefinition","defaultParameterValue":{"_class":"hudson.model.BooleanParameterValue","name":"release","value":false},"description":"是否生成生产release包","name":"release","type":"BooleanParameterDefinition"}]`
+                    // jobParams: [{
+                    //     "_class": "hudson.model.StringParameterDefinition",
+                    //     "defaultParameterValue": {
+                    //         "_class": "hudson.model.StringParameterValue",
+                    //         "name": "Branch",
+                    //         "value": "feature-inventory"
+                    //     },
+                    //     "description": "自定义分支",
+                    //     "name": "Branch",
+                    //     "type": "StringParameterDefinition"
+                    // },
+                    // {
+                    //     "_class": "hudson.model.BooleanParameterDefinition",
+                    //     "defaultParameterValue": {
+                    //         "_class": "hudson.model.BooleanParameterValue",
+                    //         "name": "release",
+                    //         "value": false
+                    //     },
+                    //     "description": "是否生成生产release包",
+                    //     "name": "release",
+                    //     "type": "BooleanParameterDefinition"
+                    // }]
                 }
             }).then(d=>{
                 // console.log('deployying', d);
