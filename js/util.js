@@ -23,3 +23,4 @@ function ajax(options) {
       $.ajax(options).done(resolve).fail(reject);
     });
   }
+

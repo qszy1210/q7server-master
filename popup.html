@@ -37,7 +37,7 @@
             <input type="text" id="search" placeholder="输入环境,输入即过滤">
             <button id="forceResfresh">刷新数据(默认不主动刷新)</button>
             <button id="toggle">部署代码</button>
-            <div id="deploy-area" style="margin-left:  200px">
+            <div id="deploy-area" style="margin-left:  15px">
                 <div>
                     <span style="display: inline-block" ><input style="width:66px" type="text" value="temp13"></span>
                     <label for="web">Web</label>
@@ -45,6 +45,7 @@
                     <label for="trek">Trek</label>
                     <input type="checkbox" name="trek" id="trek" checked="checked">
                     <button id="startDeploy">开始部署</button>
+                    <span id="deployStatus"></span><button id="fetchDeployStatus">status</button>
                 </div>
                 <div>
                     <button id="deployInit">部署init</button>
@@ -62,6 +63,7 @@
     <script type="text/javascript" src="js/jquery-1.8.3.js"></script>
     <script src="./js/util.js"></script>
     <script src="./js/sm.js"></script>
+    <script src="./js/render.js"></script>
     <script src="./js/popup.js"></script>
 </body>
 </html>

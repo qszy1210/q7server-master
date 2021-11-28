@@ -55,6 +55,7 @@ $(function() {
         //  deploy(env);
      });
      $container.on("click", "#startDeploy", function(e) {
+         var $button = $(this);
          //快速部署 temp13 环境
          const env = [];
          if($('#web').is(":checked")){
@@ -64,10 +65,18 @@ $(function() {
              env.push('trek')
          }
          function callback() {
-             $(this).text('deploying');
+            $button.text('deploying');
+            fetchDeployStatus((obj)=>{
+                setDeployStatus(obj, $("#deployStatus"))
+            });
          }
          deploy(env, callback);
      });
+    $container.on("click", "#fetchDeployStatus", function (e) {
+        fetchDeployStatus((obj) => {
+            setDeployStatus(obj, $("#deployStatus"))
+        });
+    });
      $container.on("click", "#deployInit", function(e) {
          const params = {};
          const callback = function(){};
@@ -97,6 +106,7 @@ $(function() {
      });
 
 });
+
 
 //刷新数据
 function refresh() {
@@ -131,6 +141,19 @@ function deploy(env, cb) {
                 typeof cb === 'function' && cb();
             })
         })
+}
+
+//查询部署状态
+function fetchDeployStatus(callback) {
+    const url = "http://ops.q7link.com:8080/api/qqdeploy/oneclickdeploy/?page=1&limit=20&targetEnv=nx-temp13";
+    ajaxWithToken({
+        type: "GET",
+        dataType: "json",
+        url
+    }).then(data=>{
+        const record = data && data.data && data.data.record && data.data.record[0]
+        typeof callback === 'function' && callback(record)
+    })
 }
 //部署init
 function deployInit(params, cb) {
