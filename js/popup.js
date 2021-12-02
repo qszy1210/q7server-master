@@ -151,8 +151,11 @@ function fetchDeployStatus(callback) {
         dataType: "json",
         url
     }).then(data=>{
-        const record = data && data.data && data.data.record && data.data.record[0]
-        typeof callback === 'function' && callback(record)
+        const record = data && data.data && data.data.record && data.data.record;
+        const web = record.filter(item=>item.targetjob.indexOf('web')>-1 || item.targetjob.indexOf('trek')>-1);
+        const apps = record.filter(item=>item.targetjob.indexOf('apps')>-1);
+
+        typeof callback === 'function' && callback([web[0], apps[0]])
     })
 }
 //部署init
