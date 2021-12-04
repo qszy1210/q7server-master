@@ -64,6 +64,9 @@ $(function() {
          if($('#trek').is(":checked")){
              env.push('trek')
          }
+         if($('#apps').is(":checked")){
+             env.push('apps')
+         }
          function callback() {
             $button.text('deploying');
             fetchDeployStatus((obj)=>{
