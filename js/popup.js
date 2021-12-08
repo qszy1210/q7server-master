@@ -205,6 +205,50 @@ function deployInit(params, cb) {
             })
         })
 }
+//部署update
+function deployUpdate(params, cb) {
+    const url = "http://ops.q7link.com:8080/api/qqdeploy/jenkinsjob/";
+        getToken().then(token=>{
+            ajax({
+                type: "POST",
+                url,
+                headers: {
+                    token
+                },
+                // contentType: "application/json",
+                data: {
+                    jobName: "front-update-dependency",
+                    jobParams: `[{"_class":"hudson.model.StringParameterDefinition","defaultParameterValue":{"_class":"hudson.model.StringParameterValue","name":"Branch","value":"feature-inventory"},"description":"自定义分支","name":"Branch","type":"StringParameterDefinition"},{"_class":"hudson.model.BooleanParameterDefinition","defaultParameterValue":{"_class":"hudson.model.BooleanParameterValue","name":"COMMIT","value":true},"description":"是否需要提交代码","name":"COMMIT","type":"BooleanParameterDefinition"},{"_class":"hudson.model.BooleanParameterDefinition","defaultParameterValue":{"_class":"hudson.model.BooleanParameterValue","name":"IMAGE","value":false},"description":"是否需要制作镜像","name":"IMAGE","type":"BooleanParameterDefinition"}]`
+                    // jobParams: [{
+                    //     "_class": "hudson.model.StringParameterDefinition",
+                    //     "defaultParameterValue": {
+                    //         "_class": "hudson.model.StringParameterValue",
+                    //         "name": "Branch",
+                    //         "value": "feature-inventory"
+                    //     },
+                    //     "description": "自定义分支",
+                    //     "name": "Branch",
+                    //     "type": "StringParameterDefinition"
+                    // },
+                    // {
+                    //     "_class": "hudson.model.BooleanParameterDefinition",
+                    //     "defaultParameterValue": {
+                    //         "_class": "hudson.model.BooleanParameterValue",
+                    //         "name": "release",
+                    //         "value": false
+                    //     },
+                    //     "description": "是否生成生产release包",
+                    //     "name": "release",
+                    //     "type": "BooleanParameterDefinition"
+                    // }]
+                }
+            }).then(d=>{
+                // console.log('deployying', d);
+                // $(this).val("deployying");
+                typeof cb === 'function' && cb();
+            })
+        })
+}
 
 /**
  * 根据 token 获取server信息,并且将内容render到对应的$container中
