@@ -127,6 +127,18 @@ $(function() {
 
      });
 
+     //默认打开获取状态
+
+     (function() {
+        fetchDeployStatus((obj) => {
+            setDeployStatus(obj, $("#deployStatus"))
+        });
+        fetchDeployInitStatus(obj=>{
+            setDeployInitStatus(obj, $("#deployInitStatus"))
+        })
+     })()
+
+
 });
 
 
