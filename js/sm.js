@@ -80,3 +80,23 @@ function ajaxWithToken(options) {
         })
     })
 }
+
+function zGet(key) {
+    let value = "";
+    return new Promise(function(rel, rej) {
+        chrome.storage.local.get({
+            key: ""
+        }, function(items){
+            value = items.key
+            rel(value)
+        });
+    })
+};
+
+function zSet(key ,val) {
+    return new Promise(function(rel, rej) {
+        chrome.storage.local.set({
+            key: val
+        });
+    })
+};

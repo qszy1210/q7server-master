@@ -24,3 +24,11 @@ function getStatusText(statusObj) {
     }
     return tjStr + ":" + status;
 }
+
+function setDeployInitStatus(statusArr, $span) {
+    console.log(statusArr);
+    getUserInfoFromStorage().then(user=>{
+        const obj = statusArr.find(item=>item.runUser===(user&&user.name));
+        $span.text(obj && obj.runStatus);
+    })
+}

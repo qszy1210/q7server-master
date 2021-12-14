@@ -48,9 +48,21 @@ $(function() {
         force = true;
         refresh();
      });
+
+     zGet('toggle').then(d=>{
+         if (d) {
+            $('#deploy-area').show();
+         } else {
+            $('#deploy-area').hide();
+         }
+     })
+
      $container.on("click", "#toggle", function(e) {
          //快速部署 temp13 环境
          $('#deploy-area').toggle();
+         zGet('toggle').then(d=>{
+            zSet("toggle", !d);
+         })
         //  const env = ['trek', 'web'];
         //  deploy(env);
      });
@@ -84,6 +96,13 @@ $(function() {
          const params = {};
          const callback = function(){};
          deployInit(params, callback);
+     });
+
+     //获取  front-publish-init-data-maven 状态
+     $container.on("click", "#fetchDeployInitStatus", function(e) {
+        fetchDeployInitStatus(obj=>{
+            setDeployInitStatus(obj, $("#deployInitStatus"))
+        })
      });
 
 
@@ -161,7 +180,7 @@ function fetchDeployStatus(callback) {
         typeof callback === 'function' && callback([web[0], apps[0]])
     })
 }
-//部署init
+//部署 front-publish-init-data-maven
 function deployInit(params, cb) {
     const url = "http://ops.q7link.com:8080/api/qqdeploy/jenkinsjob/";
         getToken().then(token=>{
@@ -175,6 +194,65 @@ function deployInit(params, cb) {
                 data: {
                     jobName: "front-publish-init-data-maven",
                     jobParams: `[{"_class":"hudson.model.StringParameterDefinition","defaultParameterValue":{"_class":"hudson.model.StringParameterValue","name":"Branch","value":"feature-inventory"},"description":"自定义分支","name":"Branch","type":"StringParameterDefinition"},{"_class":"hudson.model.BooleanParameterDefinition","defaultParameterValue":{"_class":"hudson.model.BooleanParameterValue","name":"release","value":false},"description":"是否生成生产release包","name":"release","type":"BooleanParameterDefinition"}]`
+                    // jobParams: [{
+                    //     "_class": "hudson.model.StringParameterDefinition",
+                    //     "defaultParameterValue": {
+                    //         "_class": "hudson.model.StringParameterValue",
+                    //         "name": "Branch",
+                    //         "value": "feature-inventory"
+                    //     },
+                    //     "description": "自定义分支",
+                    //     "name": "Branch",
+                    //     "type": "StringParameterDefinition"
+                    // },
+                    // {
+                    //     "_class": "hudson.model.BooleanParameterDefinition",
+                    //     "defaultParameterValue": {
+                    //         "_class": "hudson.model.BooleanParameterValue",
+                    //         "name": "release",
+                    //         "value": false
+                    //     },
+                    //     "description": "是否生成生产release包",
+                    //     "name": "release",
+                    //     "type": "BooleanParameterDefinition"
+                    // }]
+                }
+            }).then(d=>{
+                // console.log('deployying', d);
+                // $(this).val("deployying");
+                typeof cb === 'function' && cb();
+            })
+        })
+}
+
+function fetchDeployInitStatus(cb) {
+    const url = "http://ops.q7link.com:8080/api/qqdeploy/jenkinsjob/?page=1&limit=10";
+    getToken().then(token=>{
+        ajax({
+            type: "GET",
+            url,
+            headers: {token},
+            dataType: "json",
+        }).then(d=>{
+            typeof cb === 'function' && cb(d&&d.data);
+        })
+    })
+}
+
+//部署 front-update-dependency
+function deployUpdate(params, cb) {
+    const url = "http://ops.q7link.com:8080/api/qqdeploy/jenkinsjob/";
+        getToken().then(token=>{
+            ajax({
+                type: "POST",
+                url,
+                headers: {
+                    token
+                },
+                // contentType: "application/json",
+                data: {
+                    jobName: "front-update-dependency",
+                    jobParams: `[{"_class":"hudson.model.StringParameterDefinition","defaultParameterValue":{"_class":"hudson.model.StringParameterValue","name":"Branch","value":"feature-inventory"},"description":"自定义分支","name":"Branch","type":"StringParameterDefinition"},{"_class":"hudson.model.BooleanParameterDefinition","defaultParameterValue":{"_class":"hudson.model.BooleanParameterValue","name":"COMMIT","value":true},"description":"是否需要提交代码","name":"COMMIT","type":"BooleanParameterDefinition"},{"_class":"hudson.model.BooleanParameterDefinition","defaultParameterValue":{"_class":"hudson.model.BooleanParameterValue","name":"IMAGE","value":false},"description":"是否需要制作镜像","name":"IMAGE","type":"BooleanParameterDefinition"}]`
                     // jobParams: [{
                     //     "_class": "hudson.model.StringParameterDefinition",
                     //     "defaultParameterValue": {
@@ -241,9 +319,10 @@ function doGetServerInfo(serverList, token) {
         if (dataArr && dataArr.length) {
             const allServers = dataArr.map(data=>{
                 const servers = data && data.data && data.data.map(server=>{
-                    const {assetUrl, envName, envHost, domain} = server;
+                    const {assetUrl, envName, envHost, domain, deployService} = server;
                     if (!assetUrl) return "";
                     const {ELK, GQL, NSQ} = assetUrl;
+                    const isTrek = !!(deployService && deployService.length && deployService.find(item=>item.indexOf('trek')>-1));
                     return {
                         assetUrl: {
                             ELK, GQL, NSQ
@@ -251,6 +330,7 @@ function doGetServerInfo(serverList, token) {
                         envName,
                         envHost,
                         domain,
+                        isTrek,
                     }
                 }).filter(i=>i);
                 return servers;
@@ -301,7 +381,13 @@ function render(allServers) {
 
 function generateHtml(servers) {
     let first, second
-    first =  servers.slice(0,2).map((server,index)=>{
+    first =  servers.slice(0,2).sort((a,b)=>{
+        if (a.isTrek) {
+            return 1
+        } else {
+            return -1
+        }
+    }).map((server,index)=>{
         const {assetUrl, envName, envHost,domain} = server;
         if (!assetUrl) return "";
         const {ELK, GQL, NSQ} = assetUrl;
