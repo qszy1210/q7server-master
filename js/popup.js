@@ -285,9 +285,10 @@ function doGetServerInfo(serverList, token) {
         if (dataArr && dataArr.length) {
             const allServers = dataArr.map(data=>{
                 const servers = data && data.data && data.data.map(server=>{
-                    const {assetUrl, envName, envHost, domain} = server;
+                    const {assetUrl, envName, envHost, domain, deployService} = server;
                     if (!assetUrl) return "";
                     const {ELK, GQL, NSQ} = assetUrl;
+                    const isTrek = !!(deployService && deployService.length && deployService.find(item=>item.indexOf('trek')>-1));
                     return {
                         assetUrl: {
                             ELK, GQL, NSQ
@@ -295,6 +296,7 @@ function doGetServerInfo(serverList, token) {
                         envName,
                         envHost,
                         domain,
+                        isTrek,
                     }
                 }).filter(i=>i);
                 return servers;
@@ -345,7 +347,13 @@ function render(allServers) {
 
 function generateHtml(servers) {
     let first, second
-    first =  servers.slice(0,2).map((server,index)=>{
+    first =  servers.slice(0,2).sort((a,b)=>{
+        if (a.isTrek) {
+            return 1
+        } else {
+            return -1
+        }
+    }).map((server,index)=>{
         const {assetUrl, envName, envHost,domain} = server;
         if (!assetUrl) return "";
         const {ELK, GQL, NSQ} = assetUrl;
