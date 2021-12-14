@@ -86,6 +86,13 @@ $(function() {
          deployInit(params, callback);
      });
 
+     //获取  front-publish-init-data-maven 状态
+     $container.on("click", "#fetchDeployInitStatus", function(e) {
+        fetchDeployInitStatus(obj=>{
+            setDeployInitStatus(obj, $("#deployInitStatus"))
+        })
+     });
+
 
      $(document).on("onTokenReady", function() {
         var token = ""
@@ -161,7 +168,7 @@ function fetchDeployStatus(callback) {
         typeof callback === 'function' && callback([web[0], apps[0]])
     })
 }
-//部署init
+//部署 front-publish-init-data-maven
 function deployInit(params, cb) {
     const url = "http://ops.q7link.com:8080/api/qqdeploy/jenkinsjob/";
         getToken().then(token=>{
@@ -205,7 +212,22 @@ function deployInit(params, cb) {
             })
         })
 }
-//部署update
+
+function fetchDeployInitStatus(cb) {
+    const url = "http://ops.q7link.com:8080/api/qqdeploy/jenkinsjob/?page=1&limit=10";
+    getToken().then(token=>{
+        ajax({
+            type: "GET",
+            url,
+            headers: {token},
+            dataType: "json",
+        }).then(d=>{
+            typeof cb === 'function' && cb(d&&d.data);
+        })
+    })
+}
+
+//部署 front-update-dependency
 function deployUpdate(params, cb) {
     const url = "http://ops.q7link.com:8080/api/qqdeploy/jenkinsjob/";
         getToken().then(token=>{
