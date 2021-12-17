@@ -16,4 +16,9 @@ hi~
 希望大家享用愉快 ~-_-~
 
 ### TODO
+
+
+### 跟新列表不完全记录(具体可以看git记录)
 1. 增加jenkinsjob 的status显示
+2. 增加默认快捷键 ctrl(command)+k
+3. 状态自动获取
