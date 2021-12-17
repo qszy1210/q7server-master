@@ -36,6 +36,16 @@
         "page": "options.html",
         "chrome_style": true
     },
+    "commands": {
+        "_execute_browser_action": {
+            "suggested_key": {
+                "windows": "Ctrl+K",
+                "mac": "Command+K",
+                "chromeos": "Ctrl+K",
+                "linux": "Ctrl+K"
+            }
+        }
+    },
     "omnibox": {"keyword": "qs"}
 
 }

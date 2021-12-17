@@ -27,7 +27,7 @@ $(function() {
         $(document).trigger("onTokenReady", token);
 
         getUserInfo(token, force).then(data=>{
-            const name = data.name;
+            const name = data && data.name;
             $user.text(name);
         })
 
