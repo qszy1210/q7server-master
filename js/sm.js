@@ -30,10 +30,10 @@ function getUserInfoFromStorage() {
 }
 
 async function  getUserInfo(token, isForce) {
-    const userInfo = await getUserInfoFromStorage();
-    if (userInfo && !isForce) {
-        return userInfo;
-    }
+    // const userInfo = await getUserInfoFromStorage();
+    // if (userInfo && !isForce) {
+    //     return userInfo;
+    // }
 
     const url = "http://ops.q7link.com:8080/api/qqauth/user/info";
     if (!token) {

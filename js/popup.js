@@ -26,9 +26,13 @@ $(function() {
         });
         $(document).trigger("onTokenReady", token);
 
+        $('.deploy-control').hide();
         getUserInfo(token, force).then(data=>{
             const name = data && data.name;
-            $user.text(name);
+            if (name) {
+                $user.text(name);
+                $('.deploy-control').show();
+            }
         })
 
         // getServerList(token);
