@@ -37,13 +37,21 @@
         "chrome_style": true
     },
     "commands": {
+        "open_url": {
+            "suggested_key": {
+                "default": "Ctrl+2",
+                "mac": "Command+2"
+            },
+            "description": "open url"
+        },
         "_execute_browser_action": {
             "suggested_key": {
                 "windows": "Ctrl+K",
                 "mac": "Command+K",
                 "chromeos": "Ctrl+K",
                 "linux": "Ctrl+K"
-            }
+            },
+            "description": "default"
         }
     },
     "omnibox": {"keyword": "qs"}
