@@ -27,31 +27,37 @@
     </style>
 </head>
 <body>
-    <div>save your life</div>
     <div id="container">
+        <div>save your life</div>
         <div id="userInfo">
             <div>如果你看到我, 说明没有登录 serverInfo 信息</div>
             <div>为避免信息泄露, 我这里先不整登录功能</div>
         </div>
         <div>
-            <input type="text" id="search" placeholder="输入环境,输入即过滤">
-            <button id="forceResfresh">刷新数据(默认不主动刷新)</button>
-            <button id="toggle" class="deploy-control">部署代码</button>
+            <div>
+                <input type="text" id="search" placeholder="输入环境,输入即过滤">
+                <button id="forceResfresh">刷新数据(默认不主动刷新)</button>
+                <button id="toggle" class="deploy-control">部署代码</button>
+            </div>
+            <br/>
             <div id="deploy-area" style="margin-left:  15px; display: none" class="deploy-control">
                 <div>
+                    <div>
                     <span style="display: inline-block" ><input style="width:66px" type="text" value="temp13"></span>
-                    <label for="web">Web</label>
-                    <input type="checkbox" name="web" id="web" checked="checked">
-                    <label for="trek">| Trek</label>
-                    <input type="checkbox" name="trek" id="trek" checked="checked">
-                    <label for="apps">| apps</label>
-                    <input type="checkbox" name="apps" id="apps">
-                    <button id="startDeploy">开始部署</button>
-                    <span id="deployStatus"></span><button id="fetchDeployStatus">获取status</button>
+                        <label for="web">Web</label>
+                        <input type="checkbox" name="web" id="web">
+                        <label for="trek">| Trek</label>
+                        <input type="checkbox" name="trek" id="trek">
+                        <label for="apps">| apps</label>
+                        <input type="checkbox" name="apps" id="apps">
+                        <button id="startDeploy">开始部署</button>
+                    </div>
+                    <button id="fetchDeployStatus">获取status</button> <span id="deployStatus"></span>
                 </div>
+                <br/>
                 <div>
                     <button id="deployInit" title="front-publish-init-data-maven">执行jenkinsjob</button>
-                    <span id="deployInitStatus"></span><button id="fetchDeployInitStatus">获取status</button>
+                    <button id="fetchDeployInitStatus">获取status</button> <span id="deployInitStatus"></span>
                 </div>
             </div>
         </div>
