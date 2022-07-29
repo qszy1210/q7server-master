@@ -1,60 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>save your life</title>
     <style>
-        #container{
+        #container {
             width: 500px;
             height: 700px;
         }
-        #userInfo{
+
+        #userInfo {
             width: 100%;
         }
-        #serverList{
+
+        #serverList {
             width: 100%;
         }
-        .highlight{
+
+        .highlight {
             color: #cc3300;
             font-weight: bold;
         }
-        .highlight a{
+
+        .highlight a {
             color: #cc3300;
             font-weight: bold;
         }
     </style>
 </head>
+
 <body>
     <div id="container">
-        <div>save your life</div>
-        <div id="userInfo">
-            <div>如果你看到我, 说明没有登录 serverInfo 信息</div>
-            <div>为避免信息泄露, 我这里先不整登录功能</div>
+        <br />
+        <br />
+        <div>
+            <div>
+                <label for="username">username</label> <input type="text" id="username">
+                <label for="password">password</label> <input type="password" id="password">
+                <button id="login">登陆</button>
+            </div>
+            <br />
+            <div style="display: none;">
+                <span style="display: inline-block"><input style="width:66px" type="text" value="temp13"></span>
+                <label for="web">Web</label>
+                <input type="checkbox" name="web" id="web">
+                <label for="trek">| Trek</label>
+                <input type="checkbox" name="trek" id="trek">
+                <label for="apps">| apps</label>
+                <input type="checkbox" name="apps" id="apps">
+                <span>>>></span><button id="deploy">部署</button>
+            </div>
+            <br />
+
         </div>
+
         <div>
             <div>
                 <input type="text" id="search" placeholder="输入环境,输入即过滤">
                 <button id="forceResfresh">刷新数据(默认不主动刷新)</button>
-                <button id="toggle" class="deploy-control">部署代码</button>
             </div>
-            <br/>
+            <br />
             <div id="deploy-area" style="margin-left:  15px; display: none" class="deploy-control">
                 <div>
-                    <div>
-                    <span style="display: inline-block" ><input style="width:66px" type="text" value="temp13"></span>
-                        <label for="web">Web</label>
-                        <input type="checkbox" name="web" id="web">
-                        <label for="trek">| Trek</label>
-                        <input type="checkbox" name="trek" id="trek">
-                        <label for="apps">| apps</label>
-                        <input type="checkbox" name="apps" id="apps">
-                        <button id="startDeploy">开始部署</button>
-                    </div>
                     <button id="fetchDeployStatus">获取status</button> <span id="deployStatus"></span>
                 </div>
-                <br/>
+                <br />
                 <div>
                     <button id="deployInit" title="front-publish-init-data-maven">执行jenkinsjob</button>
                     <button id="fetchDeployInitStatus">获取status</button> <span id="deployInitStatus"></span>
@@ -72,7 +85,10 @@
     <script type="text/javascript" src="js/jquery-1.8.3.js"></script>
     <script src="./js/util.js"></script>
     <script src="./js/sm.js"></script>
+    <script src="./js/server.js"></script>
     <script src="./js/render.js"></script>
     <script src="./js/popup.js"></script>
+    <script src="./js/login.js"></script>
 </body>
+
 </html>

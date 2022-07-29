@@ -29,7 +29,7 @@ function getUserInfoFromStorage() {
     })
 }
 
-async function  getUserInfo(token, isForce) {
+async function  getUserInfoByToken(token, isForce) {
     // const userInfo = await getUserInfoFromStorage();
     // if (userInfo && !isForce) {
     //     return userInfo;
