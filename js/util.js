@@ -26,10 +26,20 @@ function cget(key) {
 
 // jquery ajax with  promise
 function ajax(options) {
-    return new Promise(function (resolve, reject) {
-      $.ajax(options).done(resolve).fail(reject);
-    }).catch(error =>{
-      console.error(error)
-    });
-  }
+
+    return cget('token').then(token=>{
+      options.headers = Object.assign({}, options.headers, {
+        Token: token
+      })
+    }).then(d=>{
+      return new Promise(function (resolve, reject) {
+        $.ajax(options).done(resolve).fail(reject);
+      }).catch(error =>{
+        console.error(error)
+      });
+    })
+
+}
+
+
 

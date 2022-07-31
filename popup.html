@@ -38,19 +38,32 @@
         <br />
         <div>
             <div>
+                当前登录用户:<span id="userinfo"></span>
+                <br />
+                <span id="deployStatus"></span>
+            </div>
+            <br/>
+            <div>
                 <label for="username">username</label> <input type="text" id="username">
                 <label for="password">password</label> <input type="password" id="password">
                 <button id="login">登陆</button>
             </div>
             <br />
-            <div style="display: none;">
-                <span style="display: inline-block"><input style="width:66px" type="text" value="temp13"></span>
+            <div>
+                <span style="display: inline-block"><input type="text" value="nx-temp13-k8s" id="env"></span>
+
                 <label for="web">Web</label>
                 <input type="checkbox" name="web" id="web">
+
                 <label for="trek">| Trek</label>
                 <input type="checkbox" name="trek" id="trek">
+
+                <label for="h5">| h5</label>
+                <input type="checkbox" name="h5" id="h5">
+
                 <label for="apps">| apps</label>
                 <input type="checkbox" name="apps" id="apps">
+
                 <span>>>></span><button id="deploy">部署</button>
             </div>
             <br />
@@ -65,7 +78,7 @@
             <br />
             <div id="deploy-area" style="margin-left:  15px; display: none" class="deploy-control">
                 <div>
-                    <button id="fetchDeployStatus">获取status</button> <span id="deployStatus"></span>
+                    <button id="fetchDeployStatus">获取status</button>
                 </div>
                 <br />
                 <div>
@@ -85,9 +98,13 @@
     <script type="text/javascript" src="js/jquery-1.8.3.js"></script>
     <script src="./js/util.js"></script>
     <script src="./js/sm.js"></script>
-    <script src="./js/server.js"></script>
-    <script src="./js/render.js"></script>
     <script src="./js/popup.js"></script>
+
+
+    <script src="./js/render.js"></script>
+
+    <script src="./js/server.js"></script>
+    <script src="./js/deploy.js"></script>
     <script src="./js/login.js"></script>
 </body>
 
