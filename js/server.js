@@ -158,10 +158,12 @@ function generateHtml(servers) {
 
 function renderItem(server, index) {
     const { domain, envName, service, serviceAddr } = server;
+    let domainLink = `http://graphql.${envName}.e7link.com/graphiql/index.html`;
+
     return `
         <td class="link">
-        <span class="highlight"><a href="#" data-url="${domain}">${envName}</a></span>
-        <a href="#" data-url="${serviceAddr}">${service}</a>
+        <span class="highlight"><a href="#" data-url="${domainLink}">${envName}</a></span>
+        <a href="#" data-url="http://${serviceAddr}">${service}</a>
         </td>
         `;
 };
