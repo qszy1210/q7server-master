@@ -74,10 +74,10 @@ $(function () {
 
     $container.on("click", "#toggle", function (e) {
         //快速部署 temp13 环境
-        $('#deploy-area').toggle();
-        zGet('toggle').then(d => {
-            zSet("toggle", !d);
-        })
+        // $('#deploy-area').toggle();
+        // zGet('toggle').then(d => {
+        //     zSet("toggle", !d);
+        // })
         //  const env = ['trek', 'web'];
         //  deploy(env);
     });

@@ -46,7 +46,7 @@ function checkDeployAuth() {
 //查询部署状态
 function fetchDeployStatus(callback) {
     const url = "http://ops.q7link.com:8080/api/qqdeploy/oneclickdeploy/?page=1&limit=20&targetEnv=nx-temp13";
-    ajaxWithToken({
+    ajax({
         type: "GET",
         dataType: "json",
         url

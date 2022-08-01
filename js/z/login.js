@@ -28,6 +28,8 @@ $(function () {
 
         cset("username", username)
         cset("password", password)
+
+        showUserInfo();
     })
 
 })
@@ -128,8 +130,24 @@ async function  getUserInfoByToken(token, isForce) {
 
 
 async function showUserInfo($user) {
+    if (!$user) {
+        $user = $("#userinfo");
+    }
     const token = await cget('token');
     const userInfo =await getUserInfoByToken(token);
     console.log('userinfo is ', userInfo);
     $user.html(`<span>${userInfo&&userInfo.name}</span>`);
 }
+
+// 将获取token的方法更改为一个promise
+function getToken() {
+    let token = "";
+    return new Promise(function(rel, rej) {
+        chrome.storage.local.get({
+            token: ""
+        }, function(items){
+            token = items.token
+            rel(token)
+        });
+    })
+  }

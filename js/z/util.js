@@ -42,4 +42,16 @@ function ajax(options) {
 }
 
 
+//请求ajax的时候, 默认带上 token
+function ajaxWithToken(options) {
+  return getToken().then(token=>{
+      return ajax({
+          ...options,
+          headers:{
+              token
+          }
+      })
+  })
+}
+
 
