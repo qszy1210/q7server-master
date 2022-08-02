@@ -70,6 +70,25 @@ $(function () {
         deploy(options, callback);
     });
 
+    // 部署 jenkins
+    $container.on("click", "#initMavenDeploy", function (e) {
+        var $button = $(this);
+        const options = {};
+        function callback(data) {
+            // $button.text('deploying');
+            // fetchDeployStatus((obj) => {
+            //     setDeployStatus(obj, $("#deployStatus"))
+            // });
+            if (data && data.msg) {
+                $('#deployStatus').html(`<span style="color: red;">${data.msg}</span>`);
+            } else {
+                $('#deployStatus').text('部署init-maven中...');
+            }
+
+        }
+        initMavenDeploy(options, callback);
+    });
+
 
 
     $container.on("click", "#toggle", function (e) {

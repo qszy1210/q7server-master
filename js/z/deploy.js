@@ -1,6 +1,4 @@
 
-
-
 //部署环境
 // deployInfo: {env: string, servers: string[]}
 // env : 具体的地址, 比如 nx-temp13
@@ -160,4 +158,30 @@ function deployUpdate(params, cb) {
                 typeof cb === 'function' && cb();
             })
         })
+}
+
+
+// 部署 jenkins 服务
+// 暂时不提供外部传入
+function initMavenDeploy(options, cb) {
+    const url = "http://ops.q7link.com:8080/api/qqdeploy/jenkinsjob/";
+
+    const {jobName}  = options;
+
+    const data= {
+        "jobName": "front-publish-init-data-maven",
+        "jobParams": `[{"_class":"hudson.model.StringParameterDefinition","defaultParameterValue":{"_class":"hudson.model.StringParameterValue","name":"Branch","value":"feature-purchase"},"description":"自定义分支","name":"Branch","type":"StringParameterDefinition"},{"_class":"hudson.model.BooleanParameterDefinition","defaultParameterValue":{"_class":"hudson.model.BooleanParameterValue","name":"release","value":false},"description":"是否生成生产release包","name":"release","type":"BooleanParameterDefinition"}]`
+    }
+    ajax({
+        url,
+        type: "POST",
+        data,
+        dataType: "json"
+    }).then(d => {
+        typeof cb === 'function' && cb(d);
+    }, error=>{
+        alert('部署失败');
+    }).catch(d=>{
+        alert("部署失败");
+    })
 }
