@@ -140,7 +140,13 @@ async function showUserInfo($user) {
     const token = await cget('token');
     const userInfo =await getUserInfoByToken(token);
     console.log('userinfo is ', userInfo);
-    $user.html(`<span>${userInfo&&userInfo.name}</span>`);
+    let showText = userInfo&&userInfo.name;
+    if (!showText) {
+        showText = "http://ops.q7link.com:8080/#/login"
+        $user.html(`<span class="link">空,<a style="color: red;" href="#" data-url="${showText}">去登录</a></span>`);
+    } else {
+        $user.html(`<span class="link">${showText}</span>`);
+    }
 }
 
 // 将获取token的方法更改为一个promise
