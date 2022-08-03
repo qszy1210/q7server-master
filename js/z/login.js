@@ -20,7 +20,8 @@ $(function () {
     $container.on('click', '#login', function () {
         const username = $('#username').val();
         const password = $('#password').val();
-        getTokenFormLogin(username, password).then(d=>{
+        // getTokenFormLogin(username, password).then(d=>{
+        getTokenFromCookie().then(d=>{
             console.log('ddd', d)
         }).then(d=>{
             refresh();
@@ -34,6 +35,7 @@ $(function () {
 
 })
 
+// 直接登录设置 token 会导致原来的登录生效
 function getTokenFormLogin(username, password) {
     return ajax({
         type: "POST",
@@ -65,7 +67,7 @@ function getTokenFromCookie() {
             domain: url,
         }, cookies => {
             token = (cookies.find(c => c.name === tokenKey) || {}).value;
-            console.log("token is", token);
+            console.log("token from cookie is", token);
             cset("token", token).then(d => {
                 rel(token);
             }).finally(() => {
@@ -105,9 +107,10 @@ async function  getUserInfoByToken(token, isForce) {
             })
         }).then(data=>{
             const userInfo = data && data.data && data.data;
-            chrome.storage.local.set({
-                userInfo
-            });
+            console.log('userinfo is', userInfo)
+            // chrome.storage.local.set({
+            //     userInfo
+            // });
             return userInfo;
         })
     } else {
@@ -119,9 +122,10 @@ async function  getUserInfoByToken(token, isForce) {
             dataType: "json",
         }).then(data=>{
             const userInfo = data && data.data && data.data;
-            chrome.storage.local.set({
-                userInfo
-            });
+            console.log('userinfo is', userInfo)
+            // chrome.storage.local.set({
+            //     userInfo
+            // });
             return userInfo;
         })
     }

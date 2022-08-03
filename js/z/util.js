@@ -28,9 +28,11 @@ function cget(key) {
 function ajax(options) {
 
     return cget('token').then(token=>{
-      options.headers = Object.assign({}, options.headers, {
-        Token: token
-      })
+      if (token) {
+        options.headers = Object.assign({}, options.headers, {
+          Token: token
+        })
+      }
     }).then(d=>{
       return new Promise(function (resolve, reject) {
         $.ajax(options).done(resolve).fail(reject);

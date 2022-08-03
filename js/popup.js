@@ -14,7 +14,7 @@ $(function () {
     refresh();
 
     const $user = $("#userinfo");
-    showUserInfo($user);
+    getTokenFromCookie().then(d=>showUserInfo($user));
 
 
     const $container = $("#container");
