@@ -158,7 +158,8 @@ function generateHtml(servers) {
 
 function renderItem(server, index) {
     const { domain, envName, service, serviceAddr } = server;
-    let domainLink = `http://graphql.${envName}.e7link.com/graphiql/index.html`;
+    // let domainLink = `http://graphql.${envName}.e7link.com/graphiql/index.html`;
+    let domainLink = `https://${envName}.e7link.com/cn-global/login`;
 
     return `
         <td class="link">
