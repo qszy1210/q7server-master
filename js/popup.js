@@ -74,6 +74,9 @@ $(function () {
     $container.on("click", "#initMavenDeploy", function (e) {
         var $button = $(this);
         var branch = $('#j-branch').val();
+        if (!branch) {
+            alert('不要乱搞-_-!')
+        }
         const options = {
             branch
         };
