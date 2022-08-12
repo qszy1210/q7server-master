@@ -73,7 +73,13 @@ $(function () {
     // 部署 jenkins
     $container.on("click", "#initMavenDeploy", function (e) {
         var $button = $(this);
-        const options = {};
+        var branch = $('#j-branch').val();
+        const options = {
+            branch
+        };
+
+        cset("init-maven-branch", branch);
+
         function callback(data) {
             // $button.text('deploying');
             // fetchDeployStatus((obj) => {

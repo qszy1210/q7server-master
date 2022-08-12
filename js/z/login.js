@@ -15,6 +15,10 @@ $(function () {
         $('#password').val(d);
     })
 
+    cget("init-maven-branch").then(d=>{
+        $('#j-branch').val(d);
+    });
+
 
 
     $container.on('click', '#login', function () {

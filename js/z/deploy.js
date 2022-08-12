@@ -166,11 +166,11 @@ function deployUpdate(params, cb) {
 function initMavenDeploy(options, cb) {
     const url = "http://ops.q7link.com:8080/api/qqdeploy/jenkinsjob/";
 
-    const {jobName}  = options;
+    const {jobName="front-publish-init-data-maven", branch="feature-purchase"}  = options;
 
     const data= {
-        "jobName": "front-publish-init-data-maven",
-        "jobParams": `[{"_class":"hudson.model.StringParameterDefinition","defaultParameterValue":{"_class":"hudson.model.StringParameterValue","name":"Branch","value":"feature-purchase"},"description":"自定义分支","name":"Branch","type":"StringParameterDefinition"},{"_class":"hudson.model.BooleanParameterDefinition","defaultParameterValue":{"_class":"hudson.model.BooleanParameterValue","name":"release","value":false},"description":"是否生成生产release包","name":"release","type":"BooleanParameterDefinition"}]`
+        "jobName": jobName,
+        "jobParams": `[{"_class":"hudson.model.StringParameterDefinition","defaultParameterValue":{"_class":"hudson.model.StringParameterValue","name":"Branch","value":"${branch}"},"description":"自定义分支","name":"Branch","type":"StringParameterDefinition"},{"_class":"hudson.model.BooleanParameterDefinition","defaultParameterValue":{"_class":"hudson.model.BooleanParameterValue","name":"release","value":false},"description":"是否生成生产release包","name":"release","type":"BooleanParameterDefinition"}]`
     }
     ajax({
         url,
