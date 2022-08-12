@@ -29,6 +29,11 @@
             color: #cc3300;
             font-weight: bold;
         }
+        .hover-hand{
+            cursor: pointer;
+            display: inline-block;
+            font-weight: 800;
+        }
     </style>
 </head>
 
@@ -52,16 +57,22 @@
             <div>
                 <span style="display: inline-block"><input type="text" value="nx-temp13-k8s" id="env"></span>
 
-                <label for="web">Web</label>
+                <label class="hover-hand" for="web">Web</label>
                 <input type="checkbox" name="web" id="web">
 
-                <label for="trek">| Trek</label>
+                <span>|</span>
+
+                <label class="hover-hand" for="trek">Trek</label>
                 <input type="checkbox" name="trek" id="trek">
 
-                <label for="h5">| h5</label>
+                <span>|</span>
+
+                <label class="hover-hand" for="h5">h5</label>
                 <input type="checkbox" name="h5" id="h5">
 
-                <label for="apps">| apps</label>
+                <span>|</span>
+
+                <label class="hover-hand" for="apps">apps</label>
                 <input type="checkbox" name="apps" id="apps">
 
                 <span>>>></span><button id="deploy">部署</button>
