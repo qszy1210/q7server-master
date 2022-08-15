@@ -87,7 +87,7 @@ function doGetServerInfo(serverList, token) {
                 "graphql"
             ]
             const allServers = dataArr.map(data => {
-                const servers = data && data.data && data.data.filter(i => i && filterKeys.includes(i.service)).map(server => {
+                const servers = data && data.data && data.data.length && data.data.filter(i => i && filterKeys.includes(i.service)).map(server => {
                     const { domain, envName, service, serviceAddr } = server;
                     // const isTrek = !!(deployService && deployService.length && deployService.find(item=>item.indexOf('trek')>-1));
                     return {
