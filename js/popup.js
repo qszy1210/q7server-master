@@ -9,7 +9,14 @@ let tempServers = [];
 $(function () {
 
     $("#search").focus();
-    $("#search").val('temp');
+
+    cget('searchvalue').then(d=>{
+        if (d) {
+            $("#search").val(d);
+            return;
+        }
+        $("#search").val('temp');
+    })
 
     refresh();
 
@@ -29,6 +36,7 @@ $(function () {
     $container.on("input", "#search", function (e) {
         console.log(e.target.value);
         render();
+        cset("searchvalue", e.target.value);
     });
 
     // 刷新服务列表信息
