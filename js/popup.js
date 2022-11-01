@@ -24,6 +24,14 @@ $(function () {
     getTokenFromCookie().then(d=>showUserInfo($user));
 
 
+    cget("toggleEnableDeploy").then(d=>{
+        //默认设置为 不启用
+        if (!d) {
+            $('#deploy').attr('disabled', 'disabled')
+        }
+    });
+
+
     const $container = $("#container");
 
     // 点击链接
@@ -43,6 +51,21 @@ $(function () {
     $container.on("click", "#forceResfresh", function (e) {
         force = true;
         refresh();
+    });
+
+    //启用部署
+    $container.on("click", "#toggleEnableDeploy", function (e) {
+        if ($('#deploy').attr('disabled')) {
+            $('#deploy').removeAttr('disabled');
+            cset("toggleEnableDeploy", true);
+        } else {
+            $('#deploy').attr('disabled', 'disabled');
+            cset("toggleEnableDeploy", false);
+        }
+        // cget("toggleEnableDeploy").then(d=>{
+        //     //默认设置为 不启用
+        //     cset("toggleEnableDeploy", !d);
+        // });
     });
 
     // 部署服务
