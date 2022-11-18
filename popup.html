@@ -12,6 +12,20 @@
             height: 700px;
         }
 
+        .header-container{
+            position: relative;
+        }
+
+        .header-container .redirect-area{
+            position: absolute;
+            left: 210px;
+            top: 0;
+        }
+        .header-container .redirect-area button{
+            display: inline-block;
+            margin-right: 10px;
+        }
+
         #userInfo {
             width: 100%;
         }
@@ -34,6 +48,7 @@
             display: inline-block;
             font-weight: 800;
         }
+
     </style>
 </head>
 
@@ -41,7 +56,7 @@
     <div id="container">
         <br />
         <br />
-        <div>
+        <div class="header-container">
             <div>
                 当前登录用户:<span id="userinfo"></span>
                 <br />
@@ -53,7 +68,14 @@
                 <label for="password">password</label> <input type="password" id="password">
                 <button id="login">登陆</button>
             </div>
+            <div class="redirect-area">
+                <button id="redirect0">r1</button>
+                <button id="redirect1">r2</button>
+                <button id="redirect2">r3</button>
+            </div>
             <br />
+
+
             <div>
                 <button id="toggleEnableDeploy">启用/关闭部署</button>
                 <br />

@@ -57,3 +57,8 @@ function ajaxWithToken(options) {
 }
 
 
+const openArr = [
+  "TimeSheet/form/create?billTypeId=QJK78R50J92000S",
+  "AdjustedCost/form/create?billTypeId=J652U1615TS0003",
+  "InitialCost/form/create?billTypeId=V335F1615TS000V",
+]
