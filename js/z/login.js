@@ -38,19 +38,24 @@ $(function () {
     });
 
 
-    for(var i = 0; i < 3; i++) {
-        $container.on('click', '#redirect' + i, function ($obj) {
-            const i = $obj.target.id.match(/\d/)[0];
-            chrome.tabs.getSelected(null, async function (tab) {
-                const url = tab.url;
-                const newUrl = url.replace(/(.*#\/)(.*)/, function(m, p1, p2){
-                    return p1 + openArr[i];
-                });
-                await chrome.tabs.update(tab.id, {url: newUrl});
-                // await chrome.windows.update(tab.windowId, {url: newUrl});
+
+    openArr.forEach((link,index)=>{
+        const content = link.split("/")[0];
+        $('.redirect-area').append(`<button class="redirect-button">${content}</button>`)
+    })
+
+
+    $container.on('click', '.redirect-button', function ($obj) {
+        const i = $($obj.target).index();
+        chrome.tabs.getSelected(null, async function (tab) {
+            const url = tab.url;
+            const newUrl = url.replace(/(.*#\/)(.*)/, function(m, p1, p2){
+                return p1 + openArr[i];
             });
-        })
-    }
+            await chrome.tabs.update(tab.id, {url: newUrl});
+            // await chrome.windows.update(tab.windowId, {url: newUrl});
+        });
+    })
 
 
 })

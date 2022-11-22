@@ -61,4 +61,5 @@ const openArr = [
   "TimeSheet/form/create?billTypeId=QJK78R50J92000S",
   "AdjustedCost/form/create?billTypeId=J652U1615TS0003",
   "InitialCost/form/create?billTypeId=V335F1615TS000V",
+  "PurReceipt/form/create?billTypeId=SUC8TV51UBH0001",
 ]
