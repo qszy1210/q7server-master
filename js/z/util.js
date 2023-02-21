@@ -58,12 +58,9 @@ function ajaxWithToken(options) {
 
 
 const openArr = [
-  "AdjustedCost/list",
-  "AdjustedCost/form/create?billTypeId=J652U1615TS0003",
-  "TimeSheet/form/create?billTypeId=QJK78R50J92000Q",
-  "TimeSheet/form/create?billTypeId=QJK78R50J92000S",
-  "InitialCost/form/create?billTypeId=V335F1615TS000V",
+  "AllocatedResultTarget/list",
   "PurReceipt/form/create?billTypeId=SUC8TV51UBH0001",
-  "SalesIssue/form/create?billTypeId=SUC8TV51UBH0007",
-  "Reimburse/form/create?billTypeId=7CAFGK501610001",
+  "PurReceipt/list",
+  "AdjustedCost/form/create?billTypeId=J652U1615TS0003",
+  "AdjustedCost/list",
 ]
