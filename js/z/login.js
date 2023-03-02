@@ -37,27 +37,54 @@ $(function () {
         showUserInfo();
     });
 
+    function addButton() {
+        let dynamicElement = $('.redirect-button');
+         $.when(dynamicElement).then(dynamicElement.remove());
+         $('.redirect-area').append('<div/>')
 
+        cget("openArr").then(openArr=>{
+            console.log(openArr);
+            if (!openArr) return;
+            openArr.forEach((link,index)=>{
+                const content = link.split("/")[0];
+                // $('.redirect-area').remove('.redirect-button');
+                $('.redirect-area').append(`<button class="redirect-button" data-rrr="${link}">${content}</button>`)
+            })
+        })
+    }
 
-    openArr.forEach((link,index)=>{
-        const content = link.split("/")[0];
-        $('.redirect-area').append(`<button class="redirect-button">${content}</button>`)
-    })
-
-
+    addButton(); // call at once
     $container.on('click', '.redirect-button', function ($obj) {
-        const i = $($obj.target).index();
+        // const i = $($obj.target).index();
         chrome.tabs.getSelected(null, async function (tab) {
             const url = tab.url;
             const newUrl = url.replace(/(.*#\/)(.*)/, function(m, p1, p2){
-                return p1 + openArr[i];
+                return p1 + $($obj.target).attr('data-rrr');
             });
             await chrome.tabs.update(tab.id, {url: newUrl});
             // await chrome.windows.update(tab.windowId, {url: newUrl});
         });
     })
 
-
+    $container.on('click', '#addRouter', async function ($btn) {
+        const arr = await cget("openArr")||[];
+        const tab = await getCurrentUrl();
+        if (tab && tab.url) {
+            const url = tab.url ;
+            if (url.split('#').length > 1) {
+                const newArr = Array.from(new Set(arr));
+                newArr.push(url.split('#/')[1]);
+                cset("openArr", Array.from(new Set(newArr))).then(d=>{
+                    addButton();
+                });
+            }
+        }
+    })
+    $container.on('click', '#clsRouter', function ($btn) {
+        cset("openArr", "").then(d=>{
+            addButton();
+        });
+    })
 })
 
 // 直接登录设置 token 会导致原来的登录生效
@@ -186,3 +213,12 @@ function getToken() {
         });
     })
   }
+
+
+  async function getCurrentUrl() {
+	return new Promise((rel, rej)=>{
+		chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+			rel(tabs[0])
+		});
+	})
+}

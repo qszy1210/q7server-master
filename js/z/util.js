@@ -58,6 +58,8 @@ function ajaxWithToken(options) {
 
 
 const openArr = [
+  "BizReason/form/edit/8B89ER50QFU1001/rank_walk_key_1677066901483?contextOrgIds=K4WUXS50JUD0011&rangeWalkOptionsKey=ROUTERPARAMS_1867919df73.dbd",
+  "BizReason/list",
   "AllocatedResultTarget/list",
   "PurReceipt/form/create?billTypeId=SUC8TV51UBH0001",
   "PurReceipt/list",
