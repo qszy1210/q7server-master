@@ -67,6 +67,7 @@ $(function () {
     })
 
     $container.on('contextmenu', '.redirect-button', async function ($obj) {
+        $obj.preventDefault();
         const url = $($obj.target).attr('data-rrr');
         const arr = await cget("openArr") || [];
         const newArr = Array.from(new Set(arr));
