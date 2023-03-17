@@ -48,7 +48,7 @@ $(function () {
             openArr.forEach((link,index)=>{
                 const content = link.split("/")[0];
                 // $('.redirect-area').remove('.redirect-button');
-                $('.redirect-area').append(`<button class="redirect-button" data-rrr="${link}">${content}</button>`)
+                $('.redirect-area').append(`<button class="redirect-button" data-rrr="${link}">${content || "首页"}</button>`)
             })
         })
     }
@@ -64,6 +64,19 @@ $(function () {
             await chrome.tabs.update(tab.id, {url: newUrl});
             // await chrome.windows.update(tab.windowId, {url: newUrl});
         });
+    })
+
+    $container.on('contextmenu', '.redirect-button', async function ($obj) {
+        const url = $($obj.target).attr('data-rrr');
+        const arr = await cget("openArr") || [];
+        const newArr = Array.from(new Set(arr));
+        const index = newArr.findIndex(u => u === url);
+        if (index > -1) {
+            newArr.splice(index, 1);
+            cset("openArr", Array.from(new Set(newArr))).then(d => {
+                addButton();
+            });
+        }
     })
 
     $container.on('click', '#addRouter', async function ($btn) {
