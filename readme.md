@@ -15,6 +15,14 @@ hi~
 
 希望大家享用愉快 ~-_-~
 
+
+### 2023-03-17
+增加当前路由快捷button
+
+### 更新列表不完全记录(具体可以看git记录)
+1. 增加jenkinsjob 的status显示
+2. 增加默认快捷键 ctrl(command)+k
+3. 状态自动获取
 ### 2022-07-29 增加登陆功能, 不依赖 cookie 进行处理
 
 1. 登陆 => 获取serverInfo
@@ -23,11 +31,5 @@ hi~
 
 3. 可以部署 jenkins 任务
 
-### TODO
 
-
-### 跟新列表不完全记录(具体可以看git记录)
-1. 增加jenkinsjob 的status显示
-2. 增加默认快捷键 ctrl(command)+k
-3. 状态自动获取
 
