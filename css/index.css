@@ -162,6 +162,10 @@ a:hover {
     border-color: var(--color-btn-hover);
 }
 
+#clsRouter {
+    float: right;
+}
+
 #toggleEnableDeploy:hover {
     background: var(--color-btn-tip-hover);
     border-color: var(--color-btn-tip-hover);
