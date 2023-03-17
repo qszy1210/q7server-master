@@ -6,7 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>save your life</title>
-    <style>
+    <link rel="stylesheet" href="css/index.css">
+    <!-- <style>
         #container {
             width: 500px;
             height: 700px;
@@ -48,21 +49,23 @@
             display: inline-block;
             font-weight: 800;
         }
-
-    </style>
+    </style> -->
 </head>
 
-<body>
+<body class="body__popup">
     <div id="container">
-        <br />
-        <br />
-        <div class="header-container">
+        <div>
             <div>
-                当前登录用户:<span id="userinfo"></span>
-                <br />
+               <div style="margin: 10px 0 0 15px"> <span>当前登录用户:</span><span id="userinfo"></span></div>
                 <span id="deployStatus"></span>
+                <span class="buttonLink">
+                    <a href="http://ops.q7link.com:8080/#/deploy/oneclockdeploy" target="_blank">
+                        <svg class="buttonIcon" viewBox="0 0 24 24">
+                            <path fill="currentColor" d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z"></path>
+                        </svg>
+                    </a>
+                </span>
             </div>
-            <br/>
             <div style="display: none;">
                 <label for="username">username</label> <input type="text" id="username">
                 <label for="password">password</label> <input type="password" id="password">
@@ -71,72 +74,80 @@
             <div class="zentao-area">
                 <button id="zentao-e" style="display:none;">eeditt</button>
             </div>
-            <br />
 
+            <div class="deployWrap shadow">
+                <div class="tempTop mb">
+                    <button id="toggleEnableDeploy">启用/关闭部署</button>
 
-            <div>
+                    <div class="deployBody">
+                        <span class="deployItem">
+                            <label class="hover-hand" for="web">Web</label>
+                            <input type="checkbox" name="web" id="web">
+                        </span>
 
-                <span style="display: inline-block"><input type="text" value="nx-temp13-k8s" id="env"></span>
+                        <span class="deployItem">
+                            <label class="hover-hand" for="trek">Trek</label>
+                            <input type="checkbox" name="trek" id="trek">
+                        </span>
 
-                <label class="hover-hand" for="web">Web</label>
-                <input type="checkbox" name="web" id="web">
+                        <span class="deployItem">
+                            <label class="hover-hand" for="h5">h5</label>
+                            <input type="checkbox" name="h5" id="h5">
+                        </span>
 
-                <span>|</span>
-
-                <label class="hover-hand" for="trek">Trek</label>
-                <input type="checkbox" name="trek" id="trek">
-
-                <span>|</span>
-
-                <label class="hover-hand" for="h5">h5</label>
-                <input type="checkbox" name="h5" id="h5">
-
-                <span>|</span>
-
-                <label class="hover-hand" for="apps">apps</label>
-                <input type="checkbox" name="apps" id="apps">
-
-                <span>>>></span><button id="deploy">部署</button><button id="toggleEnableDeploy">启用/关闭部署</button>
-
-            </div>
-            <br />
-            <div>
-                <span style="display: inline-block"><label for="j-branch">分支:</label><input type="text" value="feature-purchase" id="j-branch"></span>
-
-                <span>>>></span><button id="initMavenDeploy">部署init-maven</button>
-            </div>
-            <br />
-
-        </div>
-
-        <div>
-            <div>
-                <input type="text" id="search" placeholder="输入环境,输入即过滤">
-                <button id="forceResfresh">刷新数据(默认不主动刷新)</button>
-            </div>
-            <br />
-            <div id="deploy-area" style="margin-left:  15px; display: none" class="deploy-control">
-                <div>
-                    <button id="fetchDeployStatus">获取status</button>
+                        <span class="deployItem">
+                            <label class="hover-hand" for="apps">apps</label>
+                            <input type="checkbox" name="apps" id="apps">
+                        </span>
+                    </div>
                 </div>
-                <br />
-                <div>
-                    <button id="deployInit" title="front-publish-init-data-maven">执行jenkinsjob</button>
-                    <button id="fetchDeployInitStatus">获取status</button> <span id="deployInitStatus"></span>
+
+                <div class="tempBody">
+                    <span>环境：<input type="text" value="nx-temp13-k8s" id="env"></span>
+                    <button id="deploy">一键部署</button>
                 </div>
             </div>
-        </div>
-        <div id="serverList">
-            <table>
-                <tbody>
 
-                </tbody>
-            </table>
+            <div class="tempBody shadow">
+                <span>
+                    <label for="j-branch">分支：</label>
+                    <input type="text" value="feature-purchase" id="j-branch">
+                </span>
+                <button id="initMavenDeploy">部署init-maven</button>
+            </div>
         </div>
 
-        <div class="redirect-area">
-            <button id="addRouter">add current</button>
-            <button id="clsRouter">cls route</button>
+        <div class="footer shadow">
+            <div class="tempBody mb">
+                <span>工具：<input type="text" id="search" placeholder="输入环境,输入即过滤"></span>
+                <button id="forceResfresh">刷新数据</button>
+            </div>
+            <div class="tempBot">
+                <div id="deploy-area" style="margin-left:  15px; display: none" class="deploy-control">
+                    <div>
+                        <button id="fetchDeployStatus">获取status</button>
+                    </div>
+                    <br />
+                    <div>
+                        <button id="deployInit" title="front-publish-init-data-maven">执行jenkinsjob</button>
+                        <button id="fetchDeployInitStatus">获取status</button> <span id="deployInitStatus"></span>
+                    </div>
+                </div>
+                <div id="serverList">
+                    <table>
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="link-button shadow">
+            <div class="redirect-area">
+                <button class="addRouter" id="addRouter">add current</button>
+                <button class="clsRouter" id="clsRouter">cls route</button>
+            </div>
         </div>
     </div>
     <script type="text/javascript" src="js/jquery-1.8.3.js"></script>

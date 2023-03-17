@@ -1,0 +1,225 @@
+:root {
+    --color-primary: #3f9af7;
+    --color-text-info: #cc3300;
+    --color-text-white: #fff;
+    --color-text-darken: #909399;
+    --color-text-ipt: #606266;
+    --color-tip: #f56c6c;
+    --color-btn: #409eff;
+    --color-border-ipt: #dcdfe6;
+    --color-btn-hover: #66b1ff;
+    --color-btn-tip-hover: #f78989;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scrollbar-width: none;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+th,
+td {
+    vertical-align: middle;
+}
+
+body {
+    color: var(--color-text);
+    direction: ltr;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: .9rem;
+    line-height: 1.5rem;
+    overflow: hidden;
+}
+
+.body__popup {
+    min-width: 28rem;
+    max-width: 36rem;
+}
+
+a,
+a:focus,
+a:hover {
+    color: var(--color-primary);
+    outline: none;
+}
+
+.highlight,.highlight a{
+    color: #409eff;
+    font-weight: 500;
+}
+
+.hover-hand {
+    cursor: pointer;
+}
+
+/* container */
+#container {
+    max-height: 34rem;
+}
+
+/* header */
+.header {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2rem 0 1.5rem;
+    height: 3.2rem;
+    font-size: .88rem;
+    background: var(--color-primary);
+    color: var(--color-text-white);
+}
+
+.buttonLink {
+    position: absolute;
+    top: 50%;
+    right: .3rem;
+    margin-top: -.75rem;
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+.buttonLink a {
+    display: block;
+    color: var(--color-text-white);
+    font-weight: bold;
+}
+
+.buttonIcon {
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+/* deployWrap */
+.tempTop,
+.deployBody,
+.deployItem,
+.tempBody {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.deployItem {
+    padding: 0 .18rem;
+    margin: 0 0 0 .63rem;
+}
+
+.deployItem>label {
+    margin: 0 .18rem 0 0;
+    font-size: .81rem;
+}
+
+/* tempBody */
+.tempBody #env,
+.tempBody #j-branch,
+.tempBody #search {
+    height: 1.75rem;
+    line-height: 1.75rem;
+    color: var(--color-text-ipt);
+    -webkit-border-radius: .25rem;
+    border-radius: .25rem;
+    border: .06rem solid var(--color-border-ipt);
+    padding: 0 .25rem;
+}
+
+#toggleEnableDeploy,
+#deploy,
+#initMavenDeploy,
+#addRouter,
+#clsRouter,
+#forceResfresh {
+    color: var(--color-text-white);
+    background: var(--color-btn);
+    padding: .34rem .64rem;
+    -webkit-border-radius: .25rem;
+    border-radius: .25rem;
+    font-weight: 500;
+    text-align: center;
+    cursor: pointer;
+    border: .06rem solid var(--color-btn);
+    font-size: .81rem;
+}
+
+#toggleEnableDeploy {
+    background: var(--color-tip);
+    border: .06rem solid var(--color-tip);
+}
+
+#deploy:hover,
+#initMavenDeploy:hover,
+#addRouter:hover,
+#clsRouter:hover,
+#forceResfresh:hover {
+    background: var(--color-btn-hover);
+    border-color: var(--color-btn-hover);
+}
+
+#toggleEnableDeploy:hover {
+    background: var(--color-btn-tip-hover);
+    border-color: var(--color-btn-tip-hover);
+}
+
+#deploy[disabled] {
+    color: var(--color-text-white);
+    background: var(--color-text-darken);
+    border: .06rem solid var(--color-text-darken);
+    outline: none;
+}
+
+/* footer */
+.footer {
+    padding-bottom: .63rem;
+}
+
+.tempBot {
+    max-height: 14rem;
+    overflow-y: auto;
+}
+
+#serverList {
+    padding-right: .63rem;
+}
+
+#serverList,
+#serverList table tr {
+    display: flex;
+    justify-content: space-between;
+}
+
+#serverList table tr .highlight {
+    margin-right: .63rem;
+}
+
+/* common */
+.shadow {
+    padding: .44rem .63rem;
+    margin: .63rem;
+    -webkit-box-shadow: 0 .06rem .25rem rgb(0 21 41 / 8%);
+    box-shadow: 0 .06rem .25rem rgb(0 21 41 / 8%);
+}
+
+.mb {
+    margin-bottom: .94rem;
+}
+
+/* add 地址样式 */
+.redirect-button {
+    overflow-y: auto;
+    font-size: .5rem;
+    padding: .34rem .64rem;
+    margin: .2rem;
+    -webkit-border-radius: .25rem;
+    border-radius: .25rem;
+    text-align: center;
+    border: .06rem solid #7783ed;
+    background: #7783ed;
+    color: #fff;
+}
