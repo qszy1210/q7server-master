@@ -46,7 +46,16 @@ $(function () {
             console.log(openArr);
             if (!openArr) return;
             openArr.forEach((link,index)=>{
-                const content = link.split("/")[0];
+                const linkArr = link.split("/");
+
+                let content;
+                if (linkArr.length > 0) {
+                    content = linkArr[0]
+                }
+                if (linkArr.length > 1) {
+                    content += "-" + linkArr[1].substr(0,1)
+                }
+
                 // $('.redirect-area').remove('.redirect-button');
                 $('.redirect-area').append(`<button class="redirect-button" data-rrr="${link}">${content || "首页"}</button>`)
             })
