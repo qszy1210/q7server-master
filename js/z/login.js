@@ -56,8 +56,19 @@ $(function () {
                     content += "-" + linkArr[1].substr(0,1)
                 }
 
+                let extClass = "";
+                if (link.includes('form')) {
+                    // $('.redirect-area').append(`<button class="redirect-button button-orange" data-rrr="${link}">${content || "首页"}</button>`)
+                    extClass = "button-form"
+                }  else if (link.includes('list')) {
+                    extClass = "button-list"
+                } else if (link.includes('report')) {
+                    extClass = "button-report"
+                }
+
                 // $('.redirect-area').remove('.redirect-button');
-                $('.redirect-area').append(`<button class="redirect-button" data-rrr="${link}">${content || "首页"}</button>`)
+                $('.redirect-area').append(`<button class="redirect-button ${extClass}" data-rrr="${link}">${content || "首页"}</button>`)
+
             })
         })
     }

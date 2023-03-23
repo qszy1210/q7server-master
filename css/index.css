@@ -226,4 +226,23 @@ a:hover {
     border: .06rem solid #7783ed;
     background: #7783ed;
     color: #fff;
+    cursor: pointer;
+}
+
+
+.redirect-button:hover{
+    background: #43186d;
+}
+
+.button-form {
+    border: .06rem solid #48eb91;
+    background: #48eb91;
+}
+.button-list {
+    border: .06rem solid #151ab1;
+    background: #151ab1;
+}
+.button-report {
+    border: .06rem solid #b11544;
+    background: #b11544;
 }
