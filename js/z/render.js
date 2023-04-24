@@ -54,7 +54,18 @@ function render(allServers) {
         }
         return getNumber(s1[0].envName) - getNumber(s2[0].envName);
     }).forEach(servers => {
-        const filteredServer = searchKey && servers.filter(s => s && s.envName.indexOf(searchKey) > -1) || servers;
+        const filteredServer = searchKey && servers.filter(s => {
+            const keys = searchKey.split(',');
+            let contains = false;
+            for (let index = 0; index < keys.length; index++) {
+                const key = keys[index];
+                if (s && s.envName.indexOf(key) > -1) {
+                    contains = true;
+                    break;
+                }
+            }
+            return contains;
+        }) || servers;
         const [htmls, secondHtmls] = generateHtml(filteredServer);
         $container.append(`
         <tr>
