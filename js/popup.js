@@ -143,22 +143,22 @@ $(function () {
         if (!env) {
             alert('不要乱搞-_-!')
         }
-        const options = {
-            branch: env
-        };
+        // const options = {
+        //     branch: env
+        // };
 
         cset("j-query-status", env);
 
         // records 为数组
         function callback(records) {
             if (records && records.length) {
-                $('#r-query-status').text(`${records.join(',')}`);
+                $('#r-query-status').text(`running: ${records.map(i=>JSON.parse(i.targetjob).join('-')).join(',')}`);
             } else {
                 $('#r-query-status').text('没有运行中~' + countQuery++);
             }
 
         }
-        fetchDeployStatus2(options, callback);
+        fetchDeployStatus2(env, callback);
     });
 
 
