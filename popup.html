@@ -111,9 +111,18 @@
             <div class="tempBody shadow">
                 <span>
                     <label for="j-branch">分支：</label>
-                    <input type="text" value="feature-purchase" id="j-branch">
+                    <input type="text" value="" placeholder="输入分支" id="j-branch">
                 </span>
                 <button id="initMavenDeploy">部署init-maven</button>
+            </div>
+
+            <div class="tempBody shadow">
+                <span>
+                    <label for="j-branch">查询：</label>
+                    <input type="text" value="" placeholder="输入环境地址" id="j-query-status">
+                    <span id="r-query-status""></span>
+                </span>
+                <button id="b-query-status">查询</button>
             </div>
         </div>
 
@@ -158,6 +167,7 @@
     <script src="./js/z/render.js"></script>
     <script src="./js/z/server.js"></script>
     <script src="./js/z/deploy.js"></script>
+    <script src="./js/z/status.js"></script>
     <script src="./js/z/login.js"></script>
     <script src="./js/zentao/short.js"></script>
 </body>

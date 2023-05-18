@@ -31,6 +31,13 @@ $(function () {
         }
     });
 
+    //默认服务查询赋值
+    cget("j-query-status").then(d=>{
+        if (d) {
+            $('#j-query-status').val(d);
+        }
+    });
+
 
     const $container = $("#container");
 
@@ -127,6 +134,31 @@ $(function () {
 
         }
         initMavenDeploy(options, callback);
+    });
+
+    var countQuery  = 0;
+    // 查询服务
+    $container.on("click", "#b-query-status", function (e) {
+        var env = $('#j-query-status').val();
+        if (!env) {
+            alert('不要乱搞-_-!')
+        }
+        const options = {
+            branch: env
+        };
+
+        cset("j-query-status", env);
+
+        // records 为数组
+        function callback(records) {
+            if (records && records.length) {
+                $('#r-query-status').text(`${records.join(',')}`);
+            } else {
+                $('#r-query-status').text('没有运行中~' + countQuery++);
+            }
+
+        }
+        fetchDeployStatus2(options, callback);
     });
 
 
