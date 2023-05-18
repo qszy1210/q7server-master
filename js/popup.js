@@ -35,6 +35,7 @@ $(function () {
     cget("j-query-status").then(d=>{
         if (d) {
             $('#j-query-status').val(d);
+            $('#b-query-status').trigger('click');
         }
     });
 
