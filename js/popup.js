@@ -162,6 +162,42 @@ $(function () {
         fetchDeployStatus2(env, callback);
     });
 
+    // 快捷查询
+    $container.on("dblclick", "#j-query-status", function (e) {
+
+        chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+            var currentTab = tabs[0];
+            fetchByDblClick(currentTab);
+        })
+
+
+        function fetchByDblClick(currentTab) {
+            var currentEnv = /http.*((com)|(cn))\/(.*)\/app/.exec(currentTab.url)[4];
+            if (currentEnv) {
+                $('#j-query-status').val(currentEnv);
+            }
+            var env = $('#j-query-status').val();
+            if (!env) {
+                alert('不要乱搞-_-!');
+            }
+            // const options = {
+            //     branch: env
+            // };
+            cset("j-query-status", env);
+
+            // records 为数组
+            function callback(records) {
+                if (records && records.length) {
+                    $('#r-query-status').text(`running: ${records.map(i => JSON.parse(i.targetjob).join('-')).join(',')}`);
+                } else {
+                    $('#r-query-status').text('没有运行中~' + countQuery++);
+                }
+
+            }
+            fetchDeployStatus2(env, callback);
+        }
+    });
+
 
 
     $container.on("click", "#toggle", function (e) {
