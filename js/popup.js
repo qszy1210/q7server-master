@@ -172,7 +172,7 @@ $(function () {
 
 
         function fetchByDblClick(currentTab) {
-            var currentEnv = /http.*((com)|(cn))\/(.*)\/app/.exec(currentTab.url)[4];
+            var currentEnv = /http.*(((localhost:\d+))|(com)|(cn))\/(.*)\/app/.exec(currentTab.url)[6];
             if (currentEnv) {
                 $('#j-query-status').val(currentEnv);
             }
