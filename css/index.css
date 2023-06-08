@@ -62,7 +62,10 @@ a:hover {
 
 /* container */
 #container {
-    max-height: 34rem;
+    /* max-height: 34rem; */
+    overflow: hidden;
+    position: relative;
+    height: 34rem;
 }
 
 /* header */
@@ -184,11 +187,21 @@ a:hover {
 /* footer */
 .footer {
     padding-bottom: .63rem;
+    height: 10rem;
 }
 
 .tempBot {
     max-height: 14rem;
     overflow-y: auto;
+    height: 7rem;
+    overflow: auto;
+}
+
+.link-button{
+    background: #ccc;
+    height: 7.5rem;
+    margin: 0;
+    overflow: auto;
 }
 
 #serverList {
