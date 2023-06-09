@@ -107,7 +107,7 @@ $(function () {
             const url = tab.url ;
             if (url.split('#').length > 1) {
                 const newArr = Array.from(new Set(arr));
-                newArr.push(url.split('#/')[1]);
+                newArr.unshift(url.split('#/')[1]);
                 cset("openArr", Array.from(new Set(newArr))).then(d=>{
                     addButton();
                 });
