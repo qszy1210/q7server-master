@@ -8,6 +8,15 @@ let tempServers = [];
 
 $(function () {
 
+
+    cget("deploy_env").then(d=>{
+        if (d) {
+            $("#env").val(d)
+            return;
+        }
+    });
+
+
     $("#search").focus();
 
     cget('searchvalue').then(d=>{
@@ -78,6 +87,9 @@ $(function () {
 
     // 部署服务
     $container.on("click", "#deploy", function (e) {
+
+        cset("deploy_env", $("#env").val());
+
         var $button = $(this);
         function callback(data) {
             // $button.text('deploying');
