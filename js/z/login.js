@@ -228,11 +228,17 @@ async function showUserInfo($user) {
     console.log('userinfo is ', userInfo);
     let showText = userInfo&&userInfo.name;
     if (!showText) {
+        // hide
+        $('.shadow').hide();
         showText = "http://ops.q7link.com:8080/#/login"
         $user.html(`<span class="link">空,<a style="color: red;" href="#" data-url="${showText}">去登录</a></span>`);
     } else {
+        // show
+        $('.shadow').show();
         $user.html(`<span class="link">${showText}</span>`);
     }
+
+    return showText;
 }
 
 // 将获取token的方法更改为一个promise
