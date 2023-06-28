@@ -83,8 +83,9 @@ function doGetServerInfo(serverList, token) {
     }))).then(dataArr => {
         if (dataArr && dataArr.length) {
             const filterKeys = [
+                "Gql工具地址",
                 "日志ELK",
-                "graphql"
+                "graphql",
             ]
             const allServers = dataArr.map(data => {
                 const servers = data && data.data && data.data.length && data.data.filter(i => i && filterKeys.includes(i.service)).map(server => {

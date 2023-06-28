@@ -83,20 +83,32 @@ function render(allServers) {
 }
 
 function generateHtml(servers) {
-    let first, second
-    first = servers.slice(0, 2).sort((a, b) => {
-        if (a.isTrek) {
-            return 1
-        } else {
-            return -1
-        }
-    }).map(renderItem);
+    // let first, second
+    // first = servers.slice(0, 2).sort((a, b) => {
+    //     if (a.isTrek) {
+    //         return 1
+    //     } else {
+    //         return -1
+    //     }
+    // }).map(renderItem);
 
-    second = servers.slice(2).map(renderItem);
-    return [first, second];
+    const first = servers.map(renderItem);
+
+    const containsDomain = servers.find(i=>i.domain);
+    containsDomain && first.unshift(
+        `
+        <td class="link">
+        <a href="#" data-url="${containsDomain.domain}">${containsDomain.envName}</a>
+        </td>
+        `
+    )
+
+    // second = servers.slice(2).map(renderItem);
+    // 数据返回格式有变, second 暂时不返回
+    return [first, []];
 }
 
-function renderItem(server, index) {
+function renderItem(server) {
     const { domain, envName, service } = server;
     let {serviceAddr} = server;
     // let domainLink = `http://graphql.${envName}.e7link.com/graphiql/index.html`;
@@ -107,7 +119,6 @@ function renderItem(server, index) {
     }
     return `
         <td class="link">
-        <span class="highlight"><a href="#" data-url="${domainLink}">${envName}</a></span>
         <a href="#" data-url="${serviceAddr}">${service}</a>
         </td>
         `;
