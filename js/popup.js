@@ -184,10 +184,18 @@ $(function () {
 
 
         function fetchByDblClick(currentTab) {
-            var currentEnv = /http.*(((localhost:\d+))|(com)|(cn))\/(.*)\/app/.exec(currentTab.url)[6];
-            if (currentEnv) {
-                $('#j-query-status').val(currentEnv);
+            var currentEnv = /http.*(((localhost:\d+))|(com)|(cn))\/(.*)\/app/.exec(currentTab.url);
+            if (currentEnv && currentEnv.length >=6) {
+                $('#j-query-status').val(currentEnv[6]);
+            } else {
+                var backupEnv = /https?:\/\/(.*).(e7link|77hub).com.*/.exec(currentTab.url);
+                if (backupEnv && backupEnv.length >=1) {
+                    $('#j-query-status').val(backupEnv[1]);
+                } else {
+                    alert('环境不匹配,尝试调整正则吧!')
+                }
             }
+            return
             var env = $('#j-query-status').val();
             if (!env) {
                 alert('不要乱搞-_-!');
