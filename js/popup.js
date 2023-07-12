@@ -51,6 +51,21 @@ $(function () {
 
     const $container = $("#container");
 
+    // 点击快捷跳转
+    ["test", "mobile"].forEach(text=>{
+        $container.on("click", "#go-"+text, function (e) {
+            chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+                const currentTab = tabs[0];
+                const url = currentTab.url;
+                const ret = /([^?]+)\??.*/.exec(url);
+                if (ret.length>=1){
+                    const baseUrl = ret[1];
+                    chrome.tabs.create({ url: baseUrl + "?ui-"+text+"=t" });
+                }
+            })
+        });
+    })
+
     // 点击链接
     $container.on("click", ".link a", function (e) {
         const url = $(e.target).data("url");

@@ -262,3 +262,8 @@ a:hover {
     border: .06rem solid #b11544;
     background: #b11544;
 }
+
+#go-test{
+    margin-left: 130px;
+    margin-right: 20px;
+}
