@@ -56,7 +56,7 @@
     <div id="container">
         <div>
             <div>
-               <div style="margin: 10px 0 0 15px"> <span>当前登录用户:</span><span id="userinfo"></span>
+               <div style="margin: 10px 0 0 15px"> <span>当前登录用户:</span><span id="userinfo">潜行者</span>
                     <span id="go-test"><a href="javascript:void(0)">ui-test</a></span>
                     <span id="go-mobile"><a href="javascript:void(0)">ui-mobile</a></span>
                 </div>
@@ -78,7 +78,26 @@
                 <button id="zentao-e" style="display:none;">eeditt</button>
             </div>
 
-            <div class="deployWrap shadow">
+            <div class="deployBody shadow" id="controller">
+                <span class="deployItem">
+                    <label for="controller-deploy">deploy</label>
+                    <input type="checkbox" name="controller-deploy" id="controller-deploy" >
+                </span>
+                <span class="deployItem">
+                    <label for="controller-init-maven">init-maven</label>
+                    <input type="checkbox" name="controller-init-maven" id="controller-init-maven" >
+                </span>
+                <span class="deployItem">
+                    <label for="controller-deploy-info">check</label>
+                    <input type="checkbox" name="controller-deploy-info" id="controller-deploy-info" >
+                </span>
+                <span class="deployItem">
+                    <label for="controller-backend-compile">compile</label>
+                    <input type="checkbox" name="controller-backend-compile" id="controller-backend-compile" >
+                </span>
+            </div>
+
+            <div class="deployWrap shadow" data-rel="controller-deploy">
                 <div class="tempTop mb">
                     <button id="toggleEnableDeploy">启用/关闭部署</button>
 
@@ -111,7 +130,7 @@
                 </div>
             </div>
 
-            <div class="tempBody shadow">
+            <div class="tempBody shadow" data-rel="controller-init-maven">
                 <span>
                     <label for="j-branch">分支：</label>
                     <input type="text" value="" placeholder="输入分支" id="j-branch">
@@ -119,7 +138,7 @@
                 <button id="initMavenDeploy">部署init-maven</button>
             </div>
 
-            <div class="tempBody shadow">
+            <div class="tempBody shadow" data-rel="controller-deploy-info">
                 <span>
                     <label for="j-branch">查询：</label>
                     <input type="text" value="" placeholder="输入环境地址" id="j-query-status">
@@ -167,6 +186,7 @@
 
     <script src="./js/popup.js"></script>
 
+    <script src="./js/z/control.js"></script>
     <script src="./js/z/render.js"></script>
     <script src="./js/z/server.js"></script>
     <script src="./js/z/deploy.js"></script>

@@ -9,7 +9,7 @@ let tempServers = [];
 $(function () {
 
 
-    cget("deploy_env").then(d=>{
+    zget("deploy_env").then(d=>{
         if (d) {
             $("#env").val(d)
             return;
@@ -19,7 +19,7 @@ $(function () {
 
     $("#search").focus();
 
-    cget('searchvalue').then(d=>{
+    zget('searchvalue').then(d=>{
         if (d) {
             $("#search").val(d);
             return;
@@ -33,20 +33,21 @@ $(function () {
     getTokenFromCookie().then(d=>showUserInfo($user));
 
 
-    cget("toggleEnableDeploy").then(d=>{
+    zget("toggleEnableDeploy").then(d=>{
         //默认设置为 不启用
         if (!d) {
             $('#deploy').attr('disabled', 'disabled')
         }
     });
 
-    //默认服务查询赋值
-    cget("j-query-status").then(d=>{
-        if (d) {
-            $('#j-query-status').val(d);
-            $('#b-query-status').trigger('click');
-        }
-    });
+    //默认服务查询赋值 => 取消
+    // zget("j-query-status").then(d=>{
+    //     if (d) {
+    //         $('#j-query-status').val(d);
+    //         // 默认触发查询
+    //         $('#b-query-status').trigger('click');
+    //     }
+    // });
 
 
     const $container = $("#container");
@@ -76,7 +77,7 @@ $(function () {
     $container.on("input", "#search", function (e) {
         console.log(e.target.value);
         render();
-        cset("searchvalue", e.target.value);
+        zset("searchvalue", e.target.value);
     });
 
     // 刷新服务列表信息
@@ -89,21 +90,21 @@ $(function () {
     $container.on("click", "#toggleEnableDeploy", function (e) {
         if ($('#deploy').attr('disabled')) {
             $('#deploy').removeAttr('disabled');
-            cset("toggleEnableDeploy", true);
+            zset("toggleEnableDeploy", true);
         } else {
             $('#deploy').attr('disabled', 'disabled');
-            cset("toggleEnableDeploy", false);
+            zset("toggleEnableDeploy", false);
         }
-        // cget("toggleEnableDeploy").then(d=>{
+        // zget("toggleEnableDeploy").then(d=>{
         //     //默认设置为 不启用
-        //     cset("toggleEnableDeploy", !d);
+        //     zset("toggleEnableDeploy", !d);
         // });
     });
 
     // 部署服务
     $container.on("click", "#deploy", function (e) {
 
-        cset("deploy_env", $("#env").val());
+        zset("deploy_env", $("#env").val());
 
         var $button = $(this);
         function callback(data) {
@@ -147,7 +148,7 @@ $(function () {
             branch
         };
 
-        cset("init-maven-branch", branch);
+        zset("init-maven-branch", branch);
 
         function callback(data) {
             // $button.text('deploying');
@@ -175,7 +176,7 @@ $(function () {
         //     branch: env
         // };
 
-        cset("j-query-status", env);
+        zset("j-query-status", env);
 
         // records 为数组
         function callback(records) {
@@ -218,7 +219,7 @@ $(function () {
             // const options = {
             //     branch: env
             // };
-            cset("j-query-status", env);
+            zset("j-query-status", env);
 
             // records 为数组
             function callback(records) {

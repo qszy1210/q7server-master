@@ -6,16 +6,16 @@ $(function () {
 
     const $container = $("#container");
 
-    cget('username').then(d=>{
+    zget('username').then(d=>{
         console.log('ddd', d)
         $('#username').val(d);
     })
-    cget('password').then(d=>{
+    zget('password').then(d=>{
         console.log('ddd', d)
         $('#password').val(d);
     })
 
-    cget("init-maven-branch").then(d=>{
+    zget("init-maven-branch").then(d=>{
         $('#j-branch').val(d);
     });
 
@@ -31,8 +31,8 @@ $(function () {
             refresh();
         });
 
-        cset("username", username)
-        cset("password", password)
+        zset("username", username)
+        zset("password", password)
 
         showUserInfo();
     });
@@ -42,7 +42,7 @@ $(function () {
          $.when(dynamicElement).then(dynamicElement.remove());
          $('.redirect-area').append('<div/>')
 
-        cget("openArr").then(openArr=>{
+        zget("openArr").then(openArr=>{
             console.log(openArr);
             if (!openArr) return;
             openArr.forEach((link,index)=>{
@@ -89,33 +89,33 @@ $(function () {
     $container.on('contextmenu', '.redirect-button', async function ($obj) {
         $obj.preventDefault();
         const url = $($obj.target).attr('data-rrr');
-        const arr = await cget("openArr") || [];
+        const arr = await zget("openArr") || [];
         const newArr = Array.from(new Set(arr));
         const index = newArr.findIndex(u => u === url);
         if (index > -1) {
             newArr.splice(index, 1);
-            cset("openArr", Array.from(new Set(newArr))).then(d => {
+            zset("openArr", Array.from(new Set(newArr))).then(d => {
                 addButton();
             });
         }
     })
 
     $container.on('click', '#addRouter', async function ($btn) {
-        const arr = await cget("openArr")||[];
+        const arr = await zget("openArr")||[];
         const tab = await getCurrentUrl();
         if (tab && tab.url) {
             const url = tab.url ;
             if (url.split('#').length > 1) {
                 const newArr = Array.from(new Set(arr));
                 newArr.unshift(url.split('#/')[1]);
-                cset("openArr", Array.from(new Set(newArr))).then(d=>{
+                zset("openArr", Array.from(new Set(newArr))).then(d=>{
                     addButton();
                 });
             }
         }
     })
     $container.on('click', '#clsRouter', function ($btn) {
-        cset("openArr", "").then(d=>{
+        zset("openArr", "").then(d=>{
             addButton();
         });
     })
@@ -134,7 +134,7 @@ function getTokenFormLogin(username, password) {
     }).then(d => {
         console.log(d);
         const token = d && d.data && d.data.token;
-        return cset("token", token);
+        return zset("token", token);
     })
 }
 
@@ -154,7 +154,7 @@ function getTokenFromCookie() {
         }, cookies => {
             token = (cookies.find(c => c.name === tokenKey) || {}).value;
             console.log("token from cookie is", token);
-            cset("token", token).then(d => {
+            zset("token", token).then(d => {
                 rel(token);
             }).finally(() => {
                 rel(token);
@@ -223,7 +223,7 @@ async function showUserInfo($user) {
     if (!$user) {
         $user = $("#userinfo");
     }
-    const token = await cget('token');
+    const token = await zget('token');
     const userInfo =await getUserInfoByToken(token);
     console.log('userinfo is ', userInfo);
     let showText = userInfo&&userInfo.name;
@@ -234,7 +234,8 @@ async function showUserInfo($user) {
         $user.html(`<span class="link">空,<a style="color: red;" href="#" data-url="${showText}">去登录</a></span>`);
     } else {
         // show
-        $('.shadow').show();
+        // $('.shadow').show();
+        showArea();
         $user.html(`<span class="link">${showText}</span>`);
     }
 

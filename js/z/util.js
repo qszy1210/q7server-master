@@ -7,7 +7,7 @@ function getNumber(str) {
 }
 
 //chrome storage 中设置数据
-function cset(key,value) {
+function zset(key,value) {
   return new Promise((rel, rej)=>{
     chrome.storage.local.set({[key]: value}, function() {
       console.log('Value is set to ' + value);
@@ -16,7 +16,7 @@ function cset(key,value) {
   })
 }
 //chrome storage 中获取数据
-function cget(key) {
+function zget(key) {
   return new Promise((rel, rej)=>{
       chrome.storage.local.get({[key]: ""}, function(result){
         rel(result[key])
@@ -27,7 +27,7 @@ function cget(key) {
 // jquery ajax with  promise
 function ajax(options) {
 
-    return cget('token').then(token=>{
+    return zget('token').then(token=>{
       if (token) {
         options.headers = Object.assign({}, options.headers, {
           Token: token
