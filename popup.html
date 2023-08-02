@@ -146,6 +146,14 @@
                 </span>
                 <button id="b-query-status">查询</button>
             </div>
+
+            <div class="tempBody shadow" data-rel="controller-backend-compile">
+                <span>
+                    <input type="text" value="" placeholder="输入分支" id="j_compile_branch">
+                    <input type="text" value="" title="" placeholder="输入项目,多个逗号分隔" id="j_compile_projects">
+                </span>
+                <button id="b_compile">compile</button>
+            </div>
         </div>
 
         <div class="footer shadow">
@@ -187,6 +195,7 @@
     <script src="./js/popup.js"></script>
 
     <script src="./js/z/control.js"></script>
+    <script src="./js/z/compile.js"></script>
     <script src="./js/z/render.js"></script>
     <script src="./js/z/server.js"></script>
     <script src="./js/z/deploy.js"></script>

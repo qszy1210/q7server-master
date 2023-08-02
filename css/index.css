@@ -125,6 +125,7 @@ a:hover {
 .tempBody #env,
 .tempBody #j-branch,
 .tempBody #j-query-status,
+.tempBody #j_compile_branch, .tempBody #j_compile_projects,
 .tempBody #search {
     height: 1.75rem;
     line-height: 1.75rem;
@@ -138,6 +139,7 @@ a:hover {
 #toggleEnableDeploy,
 #deploy,
 #initMavenDeploy,
+#b_compile,
 #b-query-status,
 #addRouter,
 #clsRouter,
