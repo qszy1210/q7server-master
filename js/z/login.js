@@ -182,51 +182,59 @@ async function  getUserInfoByToken(token, isForce) {
     //     return userInfo;
     // }
 
-    const url = "http://ops.q7link.com:8080/api/qqauth/user/info";
+    if (!isForce) {
+        // 如果请求时间距离上次不超过24小时, 那么不主动请求, 但是后台会异步进行请求, 如果获取不到的话, 会主动隐藏相关内容, 避免误操作;
+        const cachedUserInfo = await zget("userInfo");
+        if (cachedUserInfo && new Date().getTime() - cachedUserInfo["timestamp"] < 24*60*60*1000) {
+            return cachedUserInfo
+        }
+    }
+
     if (!token) {
-        return getToken().then(token=>{
-            ajax({
-                url,
-                headers: {
-                    Token: token
-                }
-            })
-        }).then(data=>{
-            const userInfo = data && data.data && data.data;
-            console.log('userinfo is', userInfo)
-            // chrome.storage.local.set({
-            //     userInfo
-            // });
-            return userInfo;
-        })
+        return getToken().then(getUserInfo);
     } else {
-        return ajax({
-            url,
-            headers: {
-                Token: token
-            },
-            dataType: "json",
-        }).then(data=>{
-            const userInfo = data && data.data && data.data;
-            console.log('userinfo is', userInfo)
-            // chrome.storage.local.set({
-            //     userInfo
-            // });
-            return userInfo;
-        })
+        return getUserInfo(token);
     }
 
 }
 
+async function getUserInfo(token) {
+    const url = "http://ops.q7link.com:8080/api/qqauth/user/info";
+    const userInfo = await ajax({
+        url,
+        headers: {
+            Token: token
+        },
+        type: "GET",
+        dataType: "json"
+    }).then(data => {
+        console.log("data is", data);
+        const userInfo = data && data.data && data.data;
+        console.log('userinfo is', userInfo)
+        return userInfo;
+    });
 
-async function showUserInfo($user) {
+    if(userInfo){
+        // cache userinfo
+        // 缓存一下, 避免每次都去请求
+        userInfo["timestamp"] = new Date().getTime();
+        await zset("userInfo", userInfo);
+    }
+
+    return userInfo;
+}
+
+
+async function showUserInfo($user, isForce) {
     if (!$user) {
         $user = $("#userinfo");
     }
+
     const token = await zget('token');
-    const userInfo =await getUserInfoByToken(token);
+    const userInfo = await getUserInfoByToken(token, isForce);
     console.log('userinfo is ', userInfo);
     let showText = userInfo&&userInfo.name;
+
     if (!showText) {
         // hide
         $('.shadow').hide();
@@ -235,7 +243,7 @@ async function showUserInfo($user) {
     } else {
         // show
         // $('.shadow').show();
-        showArea();
+        // showArea();
         $user.html(`<span class="link">${showText}</span>`);
     }
 

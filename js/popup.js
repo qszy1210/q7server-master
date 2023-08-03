@@ -30,6 +30,8 @@ $(function () {
     refresh();
 
     const $user = $("#userinfo");
+    //默认根据勾选去显示内容
+    // showArea();
     getTokenFromCookie().then(d=>showUserInfo($user));
 
 
