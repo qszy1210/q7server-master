@@ -4,7 +4,7 @@ $(function () {
     const ids = ["controller-deploy",
         "controller-init-maven",
         "controller-deploy-info",
-        "controller-backend-compile",];
+        "controller-backend-compile", "controller-merge-request"];
 
     const ccc = 'control-info';
 
@@ -44,7 +44,7 @@ function showArea() {
     ["controller-deploy",
         "controller-init-maven",
         "controller-deploy-info",
-        "controller-backend-compile",].forEach(id => {
+        "controller-backend-compile","controller-merge-request"].forEach(id => {
             const checked = $('#' + id).is(':checked');
             if (checked) {
                 $(`.shadow[data-rel='${id}']`).show();

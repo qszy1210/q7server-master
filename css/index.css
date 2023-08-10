@@ -63,7 +63,7 @@ a:hover {
 /* container */
 #container {
     /* max-height: 34rem; */
-    overflow: hidden;
+    overflow: auto;
     position: relative;
     height: 34rem;
 }
@@ -111,6 +111,10 @@ a:hover {
     align-items: center;
 }
 
+.deployBody {
+    flex-wrap: wrap;
+}
+
 .deployItem {
     padding: 0 .18rem;
     margin: 0 0 0 .63rem;
@@ -126,7 +130,8 @@ a:hover {
 .tempBody #j-branch,
 .tempBody #j-query-status,
 .tempBody #j_compile_branch, .tempBody #j_compile_projects,
-.tempBody #search {
+.tempBody #search,
+.tempBody #j_merge_from_branch, .tempBody #j_merge_target_branch{
     height: 1.75rem;
     line-height: 1.75rem;
     color: var(--color-text-ipt);
@@ -143,7 +148,8 @@ a:hover {
 #b-query-status,
 #addRouter,
 #clsRouter,
-#forceResfresh {
+#forceResfresh,
+#b_create_merge {
     color: var(--color-text-white);
     background: var(--color-btn);
     padding: .34rem .64rem;
