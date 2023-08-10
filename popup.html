@@ -95,6 +95,10 @@
                     <label for="controller-backend-compile">compile</label>
                     <input type="checkbox" name="controller-backend-compile" id="controller-backend-compile" >
                 </span>
+                <span class="deployItem">
+                    <label for="controller-merge-request">merge-request</label>
+                    <input type="checkbox" name="controller-merge-request" id="controller-merge-request" >
+                </span>
             </div>
 
             <div class="deployWrap shadow" data-rel="controller-deploy">
@@ -154,6 +158,29 @@
                 </span>
                 <button id="b_compile">compile</button>
             </div>
+
+            <div class="tempBody shadow" style="flex-direction: column;align-items: flex-start;"
+                 data-rel="controller-merge-request">
+                <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                    <span>Merge Request</span>
+                    <span>
+                        <label for="j_merge_web">
+                            <span>Web</span>
+                            <input type="checkbox" name="merge-request" id="j_merge_web" checked></label>
+                        <label for="j_merge_trek">
+                            <span>Trek</span>
+                            <input type="checkbox" name="merge-request" id="j_merge_trek" checked>
+                        </label>
+                    </span>
+                </div>
+                <div style="width: 100%; margin-top: 4px; display: flex; justify-content: space-between; align-items: center;">
+                    <span>
+                        <input type="text" value="" placeholder="合并分支" id="j_merge_from_branch">
+                        <input type="text" value="" title="" placeholder="目标分支" id="j_merge_target_branch">
+                    </span>
+                    <button id="b_create_merge">create</button>
+                </div>
+            </div>
         </div>
 
         <div class="footer shadow">
@@ -201,6 +228,7 @@
     <script src="./js/z/deploy.js"></script>
     <script src="./js/z/status.js"></script>
     <script src="./js/z/login.js"></script>
+    <script src="./js/z/mergeRequest.js"></script>
     <script src="./js/zentao/short.js"></script>
 </body>
 

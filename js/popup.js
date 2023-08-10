@@ -27,6 +27,8 @@ $(function () {
         $("#search").val('temp');
     })
 
+    initMergeRequestDefaultValue();
+
     refresh();
 
     const $user = $("#userinfo");
@@ -270,6 +272,9 @@ $(function () {
         })
     });
 
+    $container.on('click', '#b_create_merge', function () {
+        handleMergeRequest()
+    })
 
     $(document).on("onServerListReady", function (event, serverList) {
         var token = ""
