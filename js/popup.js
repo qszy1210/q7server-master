@@ -45,13 +45,14 @@ $(function () {
     });
 
     //默认服务查询赋值 => 取消
-    // zget("j-query-status").then(d=>{
-    //     if (d) {
-    //         $('#j-query-status').val(d);
-    //         // 默认触发查询
-    //         $('#b-query-status').trigger('click');
-    //     }
-    // });
+    zget("j-query-status").then(d=>{
+        if (d) {
+            $('#j-query-status').val(d);
+            // 默认触发查询
+            // 默认不触发查询,但是默认值还是要填写的.
+            // $('#b-query-status').trigger('click');
+        }
+    });
 
 
     const $container = $("#container");
