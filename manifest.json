@@ -37,7 +37,8 @@
     "homepage_url": "http://ops.q7link.com:8080/",
     "options_ui": {
         "page": "options.html",
-        "chrome_style": true
+        "chrome_style": true,
+        "open_in_tab": true
     },
     "commands": {
         "open_url": {

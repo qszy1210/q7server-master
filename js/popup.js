@@ -70,7 +70,23 @@ $(function () {
                 }
             })
         });
-    })
+    });
+
+    $container.on("click", "#go-q7navi", function (e) {
+        e.preventDefault();
+        chrome.runtime.openOptionsPage();
+        // chrome.tabs.create({url: chrome.runtime.getURL('options.html')});
+        // window.open(chrome.runtime.getURL('options.html'));
+        // chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+        //     const currentTab = tabs[0];
+        //     const url = currentTab.url;
+        //     const ret = /([^?]+)\??.*/.exec(url);
+        //     if (ret.length>=1){
+        //         const baseUrl = ret[1];
+        //         chrome.tabs.create({ url: baseUrl + "?ui-"+text+"=t" });
+        //     }
+        // })
+    });
 
     // 点击链接
     $container.on("click", ".link a", function (e) {

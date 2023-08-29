@@ -271,7 +271,11 @@ a:hover {
     background: #b11544;
 }
 
+
+#go-q7navi{
+    margin-left: 50px;
+    margin-right: 20px;
+}
 #go-test{
-    margin-left: 130px;
     margin-right: 20px;
 }

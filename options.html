@@ -1,12 +1,456 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>options</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>环境导航</title>
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+	<meta content="telephone=no,email=no" name="format-detection">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<meta name="apple-touch-fullscreen" content="yes" />
+	<meta name="keywords" content="网址导航" />
+	<meta name="description" content="一个简单美观可自定义的网址导航" />
+	<link rel="shortcut icon" href="img/favicon.ico">
+	<!-- -->
+	<link rel="stylesheet" type="text/css" href="css/q7navi/style.css" />
+	<link rel="stylesheet" type="text/css" href="css/q7navi/yidong.css" />
+	<link rel="stylesheet" type="text/css" href="css/q7navi/popover.css" />
+	<!-- <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js" ></script> -->
+	<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
+	<script src="js/jquery-1.8.3.js"></script>
+	<script src="js/options.js"></script>
+
+
+	<style type="text/css">
+		.popover {
+			display: none;
+			width: 350px;
+			height: 80px;
+			text-align: center;
+			line-height: 80px;
+			position: absolute;
+			left: 100%;
+			top: 0;
+			margin-left: 13px;
+			border-radius: 5px;
+			background-color: rgb(89, 86, 86);
+		}
+
+		.popover::before {
+			/* 三角形 */
+			content: '';
+			position: absolute;
+			right: 100%;
+			top: 8px;
+			border: 13px solid transparent;
+			border-right-color: rgb(180, 180, 180);
+		}
+
+		.box_inner {
+			font: 13px/19px Arial, Helvetica, sans-serif;
+			color: #ecedef;
+			text-align: center;
+			-webkit-text-size-adjust: none;
+			background: transparent;
+			font-size: 150%;
+			margin: 0;
+			padding: 0;
+			border: 0;
+			outline: 0;
+			vertical-align: top;
+		}
+
+		.scoials {
+			font: 13px/19px Arial, Helvetica, sans-serif;
+			color: #ecedef;
+			-webkit-text-size-adjust: none;
+			background: transparent;
+			margin: 0;
+			padding: 0;
+			border: 0;
+			outline: 0;
+			vertical-align: top;
+			margin-top: 19px;
+			padding-top: 24px;
+			border-top: 2px solid #2aae96;
+			text-align: center;
+			font-size: 0;
+			line-height: 0;
+		}
+
+		.search_content {
+			width: 500px;
+			margin: auto;
+			font-weight: bold;
+			color: hsl(0, 0%, 100%);
+			font-size: 14px;
+			text-align: left;
+		}
+
+	</style>
 </head>
+
 <body>
-    options
+
+	<!-- 搜索栏start -->
+	<div class="baidu baidu-2">
+		<form name="f" action="" id="search_form" >
+			<div class="Select-box-2" id="baidu">
+				<ul>
+					<li class="this_s">线上租户</li>
+				</ul>
+			</div>
+			<div class="in5">
+				<input name="wd" id="kw-2" maxlength="100" autocomplete="off" type="text" value="">
+				<!-- <div class="qingkong" id="qingkong" title="清空">x</div> -->
+			</div>
+			<input value="搜索" id="su-2" type="button">
+		</form>
+		<ul class="keylist"></ul>
+	</div>
+	<DIV class="search_content" id="search_text" name = "search_text">
+	</DIV>
+	<!-- 搜索栏end -->
+
+	<!-- 内容start -->
+	<div class="body">
+		<div class="content">
+			<div class="jianjie">
+				<div class="jj-list">
+					<div class="jj-list-tit">环境 · 线上</div>
+					<ul class="jj-list-con" id="d1">
+						<li><a class="link-3" rel="nofollow" onclick="showPopover(this, 'cn-northwest-0')">集群0</a></li>
+						<li><a class="link-3" rel="nofollow" onclick="showPopover(this, 'cn-northwest-1')">集群1</a></li>
+						<li><a class="link-3" rel="nofollow" onclick="showPopover(this, 'cn-northwest-2')">集群2</a></li>
+						<li><a class="link-3" rel="nofollow" onclick="showPopover(this, 'cn-northwest-3')">集群3</a></li>
+						<li><a class="link-3" rel="nofollow" onclick="showPopover(this, 'cn-northwest-4')">集群4</a></li>
+						<li><a class="link-3" rel="nofollow" onclick="showPopover(this, 'cn-northwest-5')">集群5</a></li>
+						<li><a class="link-3" rel="nofollow" onclick="showPopover(this, 'cn-northwest-6')">集群6</a></li>
+						<li><a class="link-3" rel="nofollow" onclick="showPopover(this, 'cn-northwest-7')">集群7</a></li>
+						<li><a class="link-3" rel="nofollow" onclick="showPopover(this, 'cn-northwest-8')">集群8</a></li>
+						<li><a class="link-3" rel="nofollow" onclick="showPopover(this, 'cn-northwest-9')">集群9(*)</a></li>
+						<li><a class="link-3" rel="nofollow" onclick="showPopover(this, 'cn-northwest-10')">集群10(*)</a></li>
+						<li><a class="link-3" rel="nofollow" onclick="showPopover(this, 'cn-northwest-11')">集群11(*)</a></li>
+					</ul>
+					<ul class="jj-list-con222" style="display: none;">
+						<div class="box_inner">
+							<!-- <img src="img/box_img1.jpg" alt=""> -->
+							<div></div>
+							<div class="scoials">
+								<ul class="jj-list-con">
+									<li><a class="link-4" rel="nofollow" onclick="openPage('login')">登录</a></li>
+									<li><a class="link-4" rel="nofollow" onclick="openPage('GraphQL')">GraphQL</a></li>
+									<li><a class="link-4" rel="nofollow" onclick="openPage('elk')">ELK</a></li>
+									<li><a class="link-4" rel="nofollow"
+											onclick="openPage('global-GraphQL')">GBL-GQL</a></li>
+									<li><a class="link-4" rel="nofollow" onclick="openPage('global-elk')">GBL-ELK</a>
+									</li>
+									<li><a class="link-4" rel="nofollow" onclick="openPage('qbos')">QBOS</a></li>
+								</ul>
+							</div>
+						</div>
+					</ul>
+				</div>
+				<div class="jj-list">
+					<div class="jj-list-tit">线下 · 固定</div>
+					<ul class="jj-list-con" id="d1">
+						<li><a class="link-3" rel="nofollow" onclick="showPopover(this, 'nx-dev-k8s')">nx-dev</a></li>
+						<li><a class="link-3" rel="nofollow" onclick="showPopover(this, 'nx-test-k8s')">nx-test</a></li>
+						<li><a class="link-3" rel="nofollow"
+								onclick="showPopover(this, 'release-aws-1')">release</a></li>
+						<li><a class="link-3" rel="nofollow"
+								onclick="showPopover(this, 'release-db-aws-1')">release-db</a></li>
+						<li><a class="link-3" rel="nofollow" onclick="showPopover(this, 'hotfix-aws-1')">hotfix</a>
+						</li>
+						<li><a class="link-3" rel="nofollow"
+								onclick="showPopover(this, 'hotfix-db-aws-1')">hotfix-db</a></li>
+						<li><a class="link-3" rel="nofollow"
+								onclick="showPopover(this, 'hotfix-inte-aws-1')">hotfix-inte</a></li>
+						<li><a class="link-3" rel="nofollow"
+								onclick="showPopover(this, 'nx-reports-k8s')">nx-reports</a></li>
+						<li><a class="link-3" rel="nofollow"
+								onclick="showPopover(this, 'stress-test-1')">stress-test-1</a></li>
+						<li><a class="link-3" rel="nofollow"
+								onclick="showPopover(this, 'stress-test-2')">stress-test-2</a></li>
+						<li><a class="link-3" rel="nofollow"
+								onclick="showPopover(this, 'stress-aws-cost-1')">stress-cost</a></li>
+					</ul>
+					<ul class="jj-list-con222" style="display: none;">
+						<div class="box_inner">
+							<!-- <img src="img/box_img1.jpg" alt=""> -->
+							<div></div>
+							<div class="scoials">
+								<ul class="jj-list-con">
+									<li><a class="link-4" rel="nofollow" onclick="openPage('login')">登录</a></li>
+									<li><a class="link-4" rel="nofollow" onclick="openPage('GraphQL')">GraphQL</a></li>
+									<li><a class="link-4" rel="nofollow" onclick="openPage('elk')">ELK</a></li>
+									<li><a class="link-4" rel="nofollow"
+											onclick="openPage('global-GraphQL')">GBL-GQL</a></li>
+									<li><a class="link-4" rel="nofollow" onclick="openPage('qbos')">QBOS</a></li>
+								</ul>
+							</div>
+						</div>
+					</ul>
+				</div>
+				<div class="jj-list">
+					<div class="jj-list-tit">线下 · 临时</div>
+					<ul class="jj-list-con" id="d1">
+						<li><a class="link-3" rel="nofollow" onclick="showPopover(this, 'nx-temp1-k8s')">nx-temp1</a>
+						</li>
+						<li><a class="link-3" rel="nofollow" onclick="showPopover(this, 'nx-temp2-k8s')">nx-temp2</a>
+						</li>
+						<li><a class="link-3" rel="nofollow" onclick="showPopover(this, 'nx-temp3-k8s')">nx-temp3</a>
+						</li>
+						<li><a class="link-3" rel="nofollow" onclick="showPopover(this, 'nx-temp4-k8s')">nx-temp4</a>
+						</li>
+						<li><a class="link-3" rel="nofollow" onclick="showPopover(this, 'nx-temp5-k8s')">nx-temp5</a>
+						</li>
+						<li><a class="link-3" rel="nofollow" onclick="showPopover(this, 'nx-temp6-k8s')">nx-temp6</a>
+						</li>
+						<li><a class="link-3" rel="nofollow" onclick="showPopover(this, 'nx-temp7-k8s')">nx-temp7</a>
+						</li>
+						<li><a class="link-3" rel="nofollow" onclick="showPopover(this, 'nx-temp8-k8s')">nx-temp8</a>
+						</li>
+						<li><a class="link-3" rel="nofollow" onclick="showPopover(this, 'nx-temp9-k8s')">nx-temp9</a>
+						</li>
+						<li><a class="link-3" rel="nofollow" onclick="showPopover(this, 'nx-temp10-k8s')">nx-temp10</a>
+						</li>
+						<li><a class="link-3" rel="nofollow" onclick="showPopover(this, 'nx-temp11-k8s')">nx-temp11</a>
+						</li>
+						<li><a class="link-3" rel="nofollow" onclick="showPopover(this, 'nx-temp12-k8s')">nx-temp12</a>
+						</li>
+
+					</ul>
+					<ul class="jj-list-con222" style="display: none;">
+						<div class="box_inner">
+							<!-- <img src="img/box_img1.jpg" alt=""> -->
+							<div></div>
+							<div class="scoials">
+								<ul class="jj-list-con">
+									<li><a class="link-4" rel="nofollow" onclick="openPage('login')">登录</a></li>
+									<li><a class="link-4" rel="nofollow" onclick="openPage('GraphQL')">GraphQL</a></li>
+									<li><a class="link-4" rel="nofollow" onclick="openPage('elk')">ELK</a></li>
+									<li><a class="link-4" rel="nofollow"
+											onclick="openPage('global-GraphQL')">GBL-GQL</a></li>
+									<li><a class="link-4" rel="nofollow" onclick="openPage('qbos')">QBOS</a></li>
+								</ul>
+							</div>
+						</div>
+					</ul>
+				</div>
+				<div class="jj-list">
+					<div class="jj-list-tit">线下 · 临时</div>
+					<ul class="jj-list-con" id="d1">
+						<li><a class="link-3" rel="nofollow" onclick="showPopover(this, 'nx-temp13-k8s')">nx-temp13</a>
+						</li>
+						<li><a class="link-3" rel="nofollow" onclick="showPopover(this, 'nx-temp14-k8s')">nx-temp14</a>
+						</li>
+						<li><a class="link-3" rel="nofollow" onclick="showPopover(this, 'nx-temp15-k8s')">nx-temp15</a>
+						</li>
+						<li><a class="link-3" rel="nofollow" onclick="showPopover(this, 'nx-temp16-k8s')">nx-temp16</a>
+						</li>
+						<li><a class="link-3" rel="nofollow" onclick="showPopover(this, 'nx-temp17-k8s')">nx-temp17</a>
+						</li>
+						<li><a class="link-3" rel="nofollow" onclick="showPopover(this, 'nx-temp18-k8s')">nx-temp18</a>
+						</li>
+						<li><a class="link-3" rel="nofollow" onclick="showPopover(this, 'nx-temp19-k8s')">nx-temp19</a>
+						</li>
+						<li><a class="link-3" rel="nofollow" onclick="showPopover(this, 'nx-temp20-k8s')">nx-temp20</a>
+						</li>
+						<li><a class="link-3" rel="nofollow" onclick="showPopover(this, 'nx-temp21-k8s')">nx-temp21</a>
+						</li>
+						<li><a class="link-3" rel="nofollow" onclick="showPopover(this, 'nx-temp22-k8s')">nx-temp22</a>
+						</li>
+						<li><a class="link-3" rel="nofollow" onclick="showPopover(this, 'nx-temp23-k8s')">nx-temp23</a>
+						</li>
+						<li><a class="link-3" rel="nofollow" onclick="showPopover(this, 'nx-temp24-k8s')">nx-temp24</a>
+						</li>
+					</ul>
+					<ul class="jj-list-con222" style="display: none;">
+						<div class="box_inner">
+							<!-- <img src="img/box_img1.jpg" alt=""> -->
+							<div></div>
+							<div class="scoials">
+								<ul class="jj-list-con">
+									<li><a class="link-4" rel="nofollow" onclick="openPage('login')">登录</a></li>
+									<li><a class="link-4" rel="nofollow" onclick="openPage('GraphQL')">GraphQL</a></li>
+									<li><a class="link-4" rel="nofollow" onclick="openPage('elk')">ELK</a></li>
+									<li><a class="link-4" rel="nofollow"
+											onclick="openPage('global-GraphQL')">GBL-GQL</a></li>
+									<li><a class="link-4" rel="nofollow" onclick="openPage('qbos')">QBOS</a></li>
+								</ul>
+							</div>
+						</div>
+					</ul>
+				</div>
+				<div class="jj-list">
+					<div class="jj-list-tit">线下 · 临时</div>
+					<ul class="jj-list-con" id="d1">
+						<li><a class="link-3" rel="nofollow" onclick="showPopover(this, 'nx-temp25-k8s')">nx-temp25</a>
+						</li>
+						<li><a class="link-3" rel="nofollow" onclick="showPopover(this, 'nx-temp26-k8s')">nx-temp26</a>
+						</li>
+						<li><a class="link-3" rel="nofollow" onclick="showPopover(this, 'nx-temp27-k8s')">nx-temp27</a>
+						</li>
+						<li><a class="link-3" rel="nofollow" onclick="showPopover(this, 'nx-temp28-k8s')">nx-temp28</a>
+						</li>
+						<li><a class="link-3" rel="nofollow" onclick="showPopover(this, 'nx-temp29-k8s')">nx-temp29</a>
+						</li>
+						<li><a class="link-3" rel="nofollow" onclick="showPopover(this, 'nx-temp30-k8s')">nx-temp30</a>
+						</li>
+						<li><a class="link-3" rel="nofollow" onclick="showPopover(this, 'nx-temp31-k8s')">nx-temp31</a>
+						</li>
+						<li><a class="link-3" rel="nofollow" onclick="showPopover(this, 'nx-temp32-k8s')">nx-temp32</a>
+						</li>
+						<li><a class="link-3" rel="nofollow" onclick="showPopover(this, 'nx-temp33-k8s')">nx-temp33</a>
+						</li>
+						<li><a class="link-3" rel="nofollow" onclick="showPopover(this, 'nx-temp34-k8s')">nx-temp34</a>
+						</li>
+						<li><a class="link-3" rel="nofollow" onclick="showPopover(this, 'nx-temp35-k8s')">nx-temp35</a>
+						</li>
+						<li><a class="link-3" rel="nofollow" onclick="showPopover(this, 'nx-temp36-k8s')">nx-temp36</a>
+						</li>
+					</ul>
+					<ul class="jj-list-con222" style="display: none;">
+
+						<div class="box_inner">
+							<!-- <img src="img/box_img1.jpg" alt=""> -->
+							<div></div>
+							<div class="scoials">
+								<ul class="jj-list-con">
+									<li><a class="link-4" rel="nofollow" onclick="openPage('login')">登录</a></li>
+									<li><a class="link-4" rel="nofollow" onclick="openPage('GraphQL')">GraphQL</a></li>
+									<li><a class="link-4" rel="nofollow" onclick="openPage('elk')">ELK</a></li>
+									<li><a class="link-4" rel="nofollow"
+											onclick="openPage('global-GraphQL')">GBL-GQL</a></li>
+									<li><a class="link-4" rel="nofollow" onclick="openPage('qbos')">QBOS</a></li>
+								</ul>
+							</div>
+						</div>
+					</ul>
+				</div>
+				<div class="jj-list">
+					<div class="jj-list-tit">线下 · 腾讯云</div>
+					<ul class="jj-list-con" id="d1">
+						<li><a class="link-3" rel="nofollow" onclick="showPopover(this, 'test-tx-1')">test-tx-1</a>
+						</li>
+						<li><a class="link-3" rel="nofollow" onclick="showPopover(this, 'test-tx-2')">test-tx-2</a>
+						</li>
+						<li><a class="link-3" rel="nofollow" onclick="showPopover(this, 'test-tx-3')">test-tx-3</a>
+						</li>
+						<li><a class="link-3" rel="nofollow" onclick="showPopover(this, 'test-tx-4')">test-tx-4</a>
+						</li>
+						<li><a class="link-3" rel="nofollow" onclick="showPopover(this, 'test-tx-5')">test-tx-5</a>
+						</li>
+						<li><a class="link-3" rel="nofollow" onclick="showPopover(this, 'test-tx-6')">test-tx-6</a>
+						</li>
+						<li><a class="link-3" rel="nofollow" onclick="showPopover(this, 'test-tx-7')">test-tx-7</a>
+						</li>
+						<li><a class="link-3" rel="nofollow" onclick="showPopover(this, 'test-tx-8')">test-tx-8</a>
+						</li>
+						<li><a class="link-3" rel="nofollow" onclick="showPopover(this, 'test-tx-9')">test-tx-9</a></li>
+						<li><a class="link-3" rel="nofollow" onclick="showPopover(this, 'test-tx-10')">test-tx-10</a></li>
+						<li><a class="link-3" rel="nofollow" onclick="showPopover(this, 'test-tx-11')">test-tx-11</a></li>
+						<li><a class="link-3" rel="nofollow" onclick="showPopover(this, 'test-tx-12')">test-tx-12</a></li>
+					</ul>
+					<ul class="jj-list-con222" style="display: none;">
+
+						<div class="box_inner">
+							<!-- <img src="img/box_img1.jpg" alt=""> -->
+							<div></div>
+							<div class="scoials">
+								<ul class="jj-list-con">
+									<li><a class="link-4" rel="nofollow" onclick="openPage('login')">登录</a></li>
+									<li><a class="link-4" rel="nofollow" onclick="openPage('GraphQL')">GraphQL</a></li>
+									<li><a class="link-4" rel="nofollow" onclick="openPage('elk')">ELK</a></li>
+									<li><a class="link-4" rel="nofollow"
+											onclick="openPage('global-GraphQL')">GBL-GQL</a></li>
+									<li><a class="link-4" rel="nofollow" onclick="openPage('qbos')">QBOS</a></li>
+								</ul>
+							</div>
+						</div>
+					</ul>
+				</div>
+				<div class="jj-list">
+					<div class="jj-list-tit">线下 · 腾讯云</div>
+					<ul class="jj-list-con" id="d1">
+						<li><a class="link-3" rel="nofollow" onclick="showPopover(this, 'test-tx-13')">test-tx-13</a></li>
+						<li><a class="link-3" rel="nofollow" onclick="showPopover(this, 'test-tx-14')">test-tx-14</a></li>
+						<li><a class="link-3" rel="nofollow" onclick="showPopover(this, 'test-tx-15')">test-tx-15</a></li>
+						<li><a class="link-3" rel="nofollow" onclick="showPopover(this, 'test-tx-16')">test-tx-16</a></li>
+						<li><a class="link-3" rel="nofollow" onclick="showPopover(this, 'test-tx-17')">test-tx-17</a></li>
+						<li><a class="link-3" rel="nofollow" onclick="showPopover(this, 'test-tx-18')">test-tx-18</a></li>
+						<li><a class="link-3" rel="nofollow" onclick="showPopover(this, 'test-tx-19')">test-tx-19</a></li>
+						<li><a class="link-3" rel="nofollow" onclick="showPopover(this, 'test-tx-20')">test-tx-20</a></li>
+						<li><a class="link-3" rel="nofollow" onclick="showPopover(this, 'test-tx-21')">test-tx-21</a></li>
+						<li><a class="link-3" rel="nofollow" onclick="showPopover(this, 'test-tx-22')">test-tx-22</a></li>
+						<li><a class="link-3" rel="nofollow" onclick="showPopover(this, 'test-tx-23')">test-tx-23</a></li>
+						<li><a class="link-3" rel="nofollow" onclick="showPopover(this, 'test-tx-24')">test-tx-24</a></li>
+					</ul>
+					<ul class="jj-list-con222" style="display: none;">
+
+						<div class="box_inner">
+							<!-- <img src="img/box_img1.jpg" alt=""> -->
+							<div></div>
+							<div class="scoials">
+								<ul class="jj-list-con">
+									<li><a class="link-4" rel="nofollow" onclick="openPage('login')">登录</a></li>
+									<li><a class="link-4" rel="nofollow" onclick="openPage('GraphQL')">GraphQL</a></li>
+									<li><a class="link-4" rel="nofollow" onclick="openPage('elk')">ELK</a></li>
+									<li><a class="link-4" rel="nofollow"
+											onclick="openPage('global-GraphQL')">GBL-GQL</a></li>
+									<li><a class="link-4" rel="nofollow" onclick="openPage('qbos')">QBOS</a></li>
+								</ul>
+							</div>
+						</div>
+					</ul>
+				</div>
+				<div class="jj-list">
+					<div class="jj-list-tit">线下 · 腾讯云</div>
+					<ul class="jj-list-con" id="d1">
+						<li><a class="link-3" rel="nofollow" onclick="showPopover(this, 'nx-tencent-rel1')">nx-tencent-rel1</a></li>
+						<li><a class="link-3" rel="nofollow" onclick="showPopover(this, 'nx-tencent1')">nx-tencent1</a></li>
+						<li><a class="link-3" rel="nofollow" onclick="showPopover(this, 'nx-tencent2')">nx-tencent2</a></li>
+						<li><a class="link-3" rel="nofollow" onclick="showPopover(this, 'nx-tencent3')">nx-tencent3</a></li>
+						<li><a class="link-3" rel="nofollow" onclick="showPopover(this, 'nx-tencent4')">nx-tencent4</a></li>
+						<li><a class="link-3" rel="nofollow" onclick="showPopover(this, 'nx-tencent5')">nx-tencent5</a></li>
+						<li><a class="link-3" rel="nofollow" onclick="showPopover(this, 'nx-tencent6')">nx-tencent6</a></li>
+						<li><a class="link-3" rel="nofollow" onclick="showPopover(this, 'nx-tencent7')">nx-tencent7</a></li>
+						<li><a class="link-3" rel="nofollow" onclick="showPopover(this, 'nx-tencent8')">nx-tencent8</a></li>
+
+					</ul>
+					<ul class="jj-list-con222" style="display: none;">
+
+						<div class="box_inner">
+							<!-- <img src="img/box_img1.jpg" alt=""> -->
+							<div></div>
+							<div class="scoials">
+								<ul class="jj-list-con">
+									<li><a class="link-4" rel="nofollow" onclick="openPage('login')">登录</a></li>
+									<li><a class="link-4" rel="nofollow" onclick="openPage('GraphQL')">GraphQL</a></li>
+									<li><a class="link-4" rel="nofollow" onclick="openPage('elk')">ELK</a></li>
+									<li><a class="link-4" rel="nofollow"
+											onclick="openPage('global-GraphQL')">GBL-GQL</a></li>
+									<li><a class="link-4" rel="nofollow" onclick="openPage('qbos')">QBOS</a></li>
+								</ul>
+							</div>
+						</div>
+					</ul>
+				</div>
+			</div>
+			<!-- 内容end -->
+
+		</div>
+
+		<div class="footer">Copyright © 2022
+			<a href="#" style="color:#ffffff;" target="_blank" rel="nofollow">风杨 </a>
+			</a>
+		</div>
+		<!-- 底部版权end -->
+	</div>
+
 </body>
+
 </html>
