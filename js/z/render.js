@@ -59,7 +59,10 @@ function render(allServers) {
             let contains = false;
             for (let index = 0; index < keys.length; index++) {
                 const key = keys[index];
-                if (s && s.envName.indexOf(key) > -1) {
+                // 只要顺序匹配即可
+                const envname =  s && s.envName;
+                const reg = new RegExp(key.split('').join('.*'));
+                if (reg.test(envname)) {
                     contains = true;
                     break;
                 }
