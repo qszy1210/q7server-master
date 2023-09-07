@@ -8,6 +8,8 @@ let tempServers = [];
 
 $(function () {
 
+    const $container = $("#container");
+
 
     zget("deploy_env").then(d=>{
         if (d) {
@@ -23,13 +25,26 @@ $(function () {
         $("#search")[0].setSelectionRange(0, $("#search").val().length);
     }, 10);
 
+    // search default value
     zget('searchvalue').then(d=>{
         if (d) {
             $("#search").val(d);
             return;
         }
         $("#search").val('temp');
-    })
+    });
+
+    // auto enter
+
+    $container.on('keypress', function(e){
+        if (e.which == 13) {
+            openUrl($('#serverList .link a').data('url'));
+        }
+    });
+
+
+
+
 
     initMergeRequestDefaultValue();
 
@@ -58,8 +73,6 @@ $(function () {
         }
     });
 
-
-    const $container = $("#container");
 
     // 点击快捷跳转
     ["test", "mobile"].forEach(text=>{

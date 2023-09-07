@@ -66,3 +66,8 @@ const openArr = [
   "AdjustedCost/form/create?billTypeId=J652U1615TS0003",
   "AdjustedCost/list",
 ]
+
+
+function openUrl(url) {
+  chrome.tabs.create({ url });
+}
