@@ -19,6 +19,10 @@ $(function () {
 
     $("#search").focus();
 
+    setTimeout(() => {
+        $("#search")[0].setSelectionRange(0, $("#search").val().length);
+    }, 10);
+
     zget('searchvalue').then(d=>{
         if (d) {
             $("#search").val(d);
