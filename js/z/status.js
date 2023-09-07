@@ -17,3 +17,20 @@ function fetchDeployStatus2(env, callback) {
         typeof callback === 'function' && callback(runningRecords)
     })
 }
+
+function fetchDeployBranch(env) {
+    const url = `http://ops.q7link.com:8080/api/qqdeploy/oneclicktemplate/?templateenv=${env}`
+    return ajax({
+        type: "GET",
+        dataType: "json",
+        url
+    }).then(data=>{
+        const info = data && data.data;
+
+        const items = info["front-static"];
+        const item = items.find(i=>(i&&i.defaultParameterValue && i.defaultParameterValue.name) === "Branch");
+
+        return item.defaultParameterValue.value;
+
+    })
+}

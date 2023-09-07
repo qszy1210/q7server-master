@@ -226,6 +226,10 @@ $(function () {
 
         }
         fetchDeployStatus2(env, callback);
+
+        fetchDeployBranch(env).then(branch=>{
+            $('#r-query-status1').text(branch);
+        });
     });
 
     // 快捷查询
@@ -250,25 +254,23 @@ $(function () {
                 }
             }
             return
-            var env = $('#j-query-status').val();
-            if (!env) {
-                alert('不要乱搞-_-!');
-            }
-            // const options = {
-            //     branch: env
-            // };
-            zset("j-query-status", env);
+            // 既然 return 了, 那么 注释一下  2023-09-07
+            // var env = $('#j-query-status').val();
+            // if (!env) {
+            //     alert('不要乱搞-_-!');
+            // }
+            // zset("j-query-status", env);
 
-            // records 为数组
-            function callback(records) {
-                if (records && records.length) {
-                    $('#r-query-status').text(`running: ${records.map(i => JSON.parse(i.targetjob).join('-')).join(',')}`);
-                } else {
-                    $('#r-query-status').text('没有运行中~' + countQuery++);
-                }
+            // // records 为数组
+            // function callback(records) {
+            //     if (records && records.length) {
+            //         $('#r-query-status').text(`running: ${records.map(i => JSON.parse(i.targetjob).join('-')).join(',')}`);
+            //     } else {
+            //         $('#r-query-status').text('没有运行中~' + countQuery++);
+            //     }
 
-            }
-            fetchDeployStatus2(env, callback);
+            // }
+            // fetchDeployStatus2(env, callback);
         }
     });
 
