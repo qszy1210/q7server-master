@@ -1,35 +1,52 @@
 var source_node;
 var popover;
 
-document.addEventListener('click', function () {
+document.addEventListener('click', function (e) {
     // source_node.style.display = 'block';
     // popover.style.display = 'none';
+    if (e.target.tagName === 'A') return;
+    $('.jj-list').each((_,$item)=>{
+        $($item).find('ul').eq(0).show();
+        $($item).find('ul').eq(1).hide();
+    })
 });
 
 function showPopover(curr, url) {
-    if (source_node != null) {
-        source_node.style.display = 'block';
-    }
-    if (popover != null) {
-        popover.style.display = 'none';
-    }
-    source_node = curr.parentNode.parentNode;
-    popover = source_node.parentNode.children[2];
-    popover.children[0].children[1].innerHTML = url
-    // alert(popover.children[0].children[1].innerHTML);
-    // popover.children[0].children[0]
+    // if (source_node != null) {
+    //     source_node.style.display = 'block';
+    // }
+    // if (popover != null) {
+    //     popover.style.display = 'none';
+    // }
+    // source_node = curr.parentNode.parentNode;
+    // popover = source_node.parentNode.children[2];
+    // popover.children[0].children[1].innerHTML = url
+    // // alert(popover.children[0].children[1].innerHTML);
+    // // popover.children[0].children[0]
 
-    popover.style.display = 'block';
-    source_node.style.display = 'none';
+    // popover.style.display = 'block';
+    // source_node.style.display = 'none';
 
-    popover.addEventListener('click', function (e) {
-        e.stopPropagation();  //点击浮层区域不会使其隐藏
-    });
-    event.stopPropagation();
+    // popover.addEventListener('click', function (e) {
+    //     e.stopPropagation();  //点击浮层区域不会使其隐藏
+    // });
+    // event.stopPropagation();
+
+    $(curr).parents('.jj-list').find('ul').eq(0).hide();
+    const popover = $(curr).parents('.jj-list').find('ul').eq(1);
+    popover.find('div div:first').html(url);
+    popover.show();
+
+
+
+
+
+
 }
 
 function openPage(app) {
-    env_name = event.target.parentNode.parentNode.parentNode.parentNode.children[1].innerHTML;
+    // env_name = event.target.parentNode.parentNode.parentNode.parentNode.children[1].innerHTML;
+    const env_name = $('.jianjie').find('.jj-list ul:visible').find('div div').html();
     domain = '';
     if (env_name.startsWith('cn-northwest')) {
         domain = env_name + '.77hub.com';
@@ -111,7 +128,7 @@ function search_tenant() {
 }
 
 document.addEventListener('click', function () {
-    popover.style.display = 'none';
+    // popover.style.display = 'none';
 });
 
 
@@ -124,4 +141,34 @@ $(function () {
         search_tenant();
     });
     // onclick="search_tenant()"
+    $(document).on('click', "[data-env*=showPopover]", function() {
+        const funcStr = $(this).data('env');
+        let env = '';
+        if (funcStr) {
+            try {
+                env = /(?:.*showPopover.*)(?:'|")(.+)(?:'|")/.exec(funcStr)[1];
+            }catch(e){
+                env = ''
+                console.error("error")
+            }
+        }
+        if (env) {
+            showPopover($(this)[0], env);
+        }
+    })
+    $(document).on('click', "[data-env*=openPage]", function() {
+        const funcStr = $(this).data('env');
+        let action = '';
+        if (funcStr) {
+            try {
+                action = /(?:.*openPage.*)(?:'|")(.+)(?:'|")/.exec(funcStr)[1];
+            }catch(e){
+                action = ''
+                console.error("error")
+            }
+        }
+        if (action) {
+            openPage(action);
+        }
+    })
 })
