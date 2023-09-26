@@ -38,7 +38,12 @@ $(function () {
 
     $container.on('keypress', function(e){
         if (e.which == 13) {
-            openUrl($('#serverList .link a').data('url'));
+            if (e.ctrlKey) {
+                openUrl($('#serverList .link a').eq(2).data('url'));
+            }
+            else {
+                openUrl($('#serverList .link a').data('url'));
+            }
         }
     });
 
