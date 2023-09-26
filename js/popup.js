@@ -206,7 +206,7 @@ $(function () {
     var countQuery  = 0;
     // 查询服务
     $container.on("click", "#b-query-status", function (e) {
-        var env = $('#j-query-status').val();
+        var env = $('#j-query-status').val().trim();
         if (!env) {
             alert('不要乱搞-_-!')
         }
