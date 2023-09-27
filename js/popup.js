@@ -36,9 +36,12 @@ $(function () {
 
     // auto enter
 
-    $container.on('keypress', function(e){
+    $container.on('keydown', function(e){
         if (e.which == 13) {
             if (e.ctrlKey) {
+                openUrl($('#serverList .link a').eq(2).data('url'));
+            }
+            else if (e.metaKey) {
                 openUrl($('#serverList .link a').eq(2).data('url'));
             }
             else {
