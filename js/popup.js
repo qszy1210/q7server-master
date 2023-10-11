@@ -240,13 +240,21 @@ $(function () {
         });
     });
 
+    var clickCount = 0, clickCountTimer, clickCountTimeout = 500;
     // 快捷查询
     $container.on("dblclick", "#j-query-status", function (e) {
-
-        chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-            var currentTab = tabs[0];
-            fetchByDblClick(currentTab);
-        })
+        clickCountTimer = window.setTimeout(function(){clickCountTimer = null;}, clickCountTimeout)
+    })
+    $container.on("click", "#j-query-status", function (e) {
+        if (clickCountTimer) {
+            window.clearTimeout(clickCountTimer);
+            clickCountTimer = null;
+            // 更改为 三击
+                chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+                    var currentTab = tabs[0];
+                    fetchByDblClick(currentTab);
+                })
+        }
 
 
         function fetchByDblClick(currentTab) {
