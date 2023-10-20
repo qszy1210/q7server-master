@@ -113,6 +113,11 @@ $(function () {
         // })
     });
 
+    $container.on("click", "#go-calcbase", function (e) {
+        e.preventDefault();
+        openUrl('./calc-base/index.html');
+    });
+
     // 点击链接
     $container.on("click", ".link a", function (e) {
         const url = $(e.target).data("url");

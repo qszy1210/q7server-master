@@ -272,10 +272,19 @@ a:hover {
 }
 
 
-#go-q7navi{
+/* #go-q7navi{
     margin-left: 50px;
     margin-right: 20px;
-}
-#go-test{
+} */
+/* #go-test{
     margin-right: 20px;
+} */
+.quick-link:nth-child(3){
+    margin-left: 15px;
+}
+.quick-link {
+    margin-right: 5px;
+}
+.quick-link:nth-child(-1){
+    margin-right: 0;
 }
